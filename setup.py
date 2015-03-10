@@ -9,11 +9,11 @@
 # Copyright (c) 2011 globo.com timehome@corp.globo.com
 
 from setuptools import setup
-from thumbor_contrib import __version__
+from thumbor_png_optimizers import __version__
 
 
 setup(
-    name='thumbor-contrib',
+    name='thumbor-png-optimizers',
     version=__version__,
     keywords='imaging face detection feature thumbnail imagemagick pil opencv',
     author='globo.com',
@@ -32,8 +32,8 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Multimedia :: Graphics :: Presentation'
     ],
-    packages=['thumbor_contrib'],
-    package_dir={"thumbor_contrib": "thumbor_contrib"},
+    packages=['thumbor_png_optimizers'],
+    package_dir={"thumbor_png_optimizers": "thumbor_png_optimizers"},
     install_requires=[
         'thumbor',
     ],

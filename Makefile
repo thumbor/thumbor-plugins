@@ -3,11 +3,11 @@ setup:
 
 f ?= "vows/"
 test pyvows:
-	@pyvows -vv --profile --cover --cover-package=thumbor-contrib --cover-threshold=90 $f
+	@pyvows -vv --profile --cover --cover-package=thumbor_png_optimizers --cover-threshold=90 $f
 
 ci_test: compile_ext
 	@echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 	@echo "TORNADO IS `python -c 'import tornado; import inspect; print(inspect.getfile(tornado))'`"
 	@echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 	$(MAKE) mongo redis
-	@pyvows -vvv --profile --cover --cover-package=thumbor-contrib --cover-threshold=90 vows/
+	@pyvows -vvv --profile --cover --cover-package=thumbor_png_optimizers --cover-threshold=90 vows/
