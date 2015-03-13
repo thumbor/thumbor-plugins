@@ -1,1 +1,1 @@
-# thumbor-png-optimizers
+# thumbor-plugins

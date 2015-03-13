@@ -9,18 +9,18 @@
 # Copyright (c) 2011 globo.com timehome@corp.globo.com
 
 from setuptools import setup
-from thumbor_png_optimizers import __version__
+from thumbor_plugins import __version__
 
 
 setup(
-    name='thumbor-png-optimizers',
+    name='thumbor-plugins',
     version=__version__,
     keywords='imaging face detection feature thumbnail imagemagick pil opencv',
     author='globo.com',
     author_email='timehome@corp.globo.com',
     url='https://github.com/globocom/thumbor/wiki',
     license='MIT',
-    description='Contributed extensions for Thumbor',
+    description='Optimizers and filters contributed by the Thumbor community',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
