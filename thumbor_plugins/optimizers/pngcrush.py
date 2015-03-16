@@ -9,6 +9,7 @@
 
 
 import os
+import subprocess
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
@@ -33,4 +34,5 @@ class Optimizer(BaseOptimizer):
             input_file,
             output_file,
         )
-        os.system(command)
+        with open(os.devnull) as null:
+            subprocess.call(command, shell=True, stdin=null)
