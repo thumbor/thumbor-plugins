@@ -32,8 +32,8 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Multimedia :: Graphics :: Presentation'
     ],
-    packages=['thumbor_png_optimizers'],
-    package_dir={"thumbor_png_optimizers": "thumbor_png_optimizers"},
+    packages=['thumbor_plugins','thumbor_plugins.optimizers'],
+    package_dir={"thumbor_plugins": "thumbor_plugins"},
     install_requires=[
         'thumbor',
     ],
