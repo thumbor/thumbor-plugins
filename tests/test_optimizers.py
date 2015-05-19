@@ -40,7 +40,7 @@ class PngcrushOptimizerTest(unittest.TestCase):
         optimizer = PngcrushOptimizer(self.get_context())
         self.assertFalse(optimizer.should_run('jpeg', None))
 
-    def test_pngcrush_should_not_run_for_png(self):
+    def test_pngcrush_should_run_for_png(self):
         optimizer = PngcrushOptimizer(self.get_context())
         self.assertTrue(optimizer.should_run('png', None))
 
