@@ -26,7 +26,7 @@ fixtures_folder = join(abspath(dirname(__file__)), 'fixtures')
 
 class PngcrushOptimizerTest(unittest.TestCase):
     def setUp(self):
-        self.pngcrush_path = '/usr/local/bin/pngcrush'
+        self.pngcrush_path = which('pngcrush')
         if not (os.path.isfile(self.pngcrush_path) and os.access(self.pngcrush_path, os.X_OK)):
             raise unittest.SkipTest("Unable to locate pngcrush at {}".format(self.pngcrush_path))
 
