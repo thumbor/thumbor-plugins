@@ -30,7 +30,7 @@ class Optimizer(BaseOptimizer):
         return ('jpg' in image_extension or 'jpeg' in image_extension) and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s --no-copy --strip --accurate --loops 10 %s %s ' % (
+        command = '%s --strip --accurate --loops 10 %s %s ' % (
             self.jpegrecompress_path,
             input_file,
             output_file,
