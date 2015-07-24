@@ -18,6 +18,7 @@ Images should be kept on the highest quality settings to achieve best results.
 
 ```ini
 QUALITY = 100
+JPEGRECOMPRESS_PATH = '/usr/bin/jpeg-recompress'
 OPTIMIZERS = [
   'thumbor.optimizers.jpegtran'
 ]
