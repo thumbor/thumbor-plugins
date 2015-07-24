@@ -14,6 +14,7 @@ import tempfile
 import unittest
 from derpconf.config import Config
 from thumbor.context import Context
+from thumbor.utils import which
 
 __dirname = abspath(dirname(__file__))
 
@@ -55,7 +56,7 @@ class PngcrushOptimizerTest(unittest.TestCase):
 
 class OptipngOptimizerTest(unittest.TestCase):
     def setUp(self):
-        self.optipng_path = '/usr/bin/optipng'
+        self.optipng_path = which('optipng')
         if not (os.path.isfile(self.optipng_path) and os.access(self.optipng_path, os.X_OK)):
             raise unittest.SkipTest("Unable to locate optipng at {}".format(self.optipng_path))
 

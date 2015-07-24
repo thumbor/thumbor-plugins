@@ -7,6 +7,7 @@ compile_ext:
 f ?= "vows/"
 test pyvows: compile_ext
 	@pyvows -vv --profile --cover --cover-package=thumbor_plugins --cover-threshold=90 $f
+	@nosetests -sv
 
 ci_test: compile_ext
 	@echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"

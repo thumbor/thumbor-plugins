@@ -32,16 +32,19 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Multimedia :: Graphics :: Presentation'
     ],
-    packages=['thumbor_plugins','thumbor_plugins.optimizers'],
+    packages=['thumbor_plugins', 'thumbor_plugins.optimizers'],
     package_dir={"thumbor_plugins": "thumbor_plugins"},
     install_requires=[
         'thumbor',
     ],
     extras_require={
         'tests': [
-            'pyvows',
+            'tornado-pyvows>=0.6.0',
+            'coverage',
             'mock',
             'colorama',
+            'pillow',
+            'nose'
         ]
     }
 )
