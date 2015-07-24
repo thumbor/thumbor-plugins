@@ -35,4 +35,6 @@ class Optimizer(BaseOptimizer):
             input_file,
             output_file,
         )
-        subprocess.call(command, shell=True, stdin=null)
+        with open(os.devnull) as null:
+            logger.debug("[JPEG-RECOMPRESS] running: " + command)
+            subprocess.call(command, shell=True, stdin=null)
