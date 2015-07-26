@@ -14,6 +14,16 @@ This optimizer uses the tool [JPEG-Archive](https://github.com/danielgtaylor/jpe
 
 > Compress JPEGs by re-encoding to the smallest JPEG quality while keeping perceived visual quality the same and by making sure huffman tables are optimized. This is a lossy operation, but the images are visually identical and it usually saves 30-70% of the size for JPEGs coming from a digital camera, particularly DSLRs. By default all EXIF/IPTC/XMP and color profile metadata is copied over, but this can be disabled to save more space if desired.
 
+| Name | Default | Description |
+| ---- | ------- | ----------- |
+| JPEGRECOMPRESS_PATH | | Path to the binary |
+| JPEGRECOMPRESS_METHOD | ssim | Set comparison method to one of 'mpe', 'ssim', 'ms-ssim', 'smallfry' |
+| JPEGRECOMPRESS_QUALITY_PRESET | medium | Set a quality preset: low, medium, high, veryhigh |
+| JPEGRECOMPRESS_QUALITY_MIN | 40 | Minimum JPEG quality (Overrides preset) |
+| JPEGRECOMPRESS_QUALITY_MAX | 95 | Maximum JPEG quality (Overrides preset) |
+| JPEGRECOMPRESS_LOOPS | 6 | Set the number of runs to attempt |
+| JPEGRECOMPRESS_ACCURATE | False | Favor accuracy over speed |
+
 Images should be kept on the highest quality settings to achieve best results.
 
 ```ini
@@ -45,14 +55,3 @@ Final optimized ssim at q=96: 0.994763
 New size is 57% of original (saved 45 kb)
 2015-07-24 17:49:22 tornado.access:INFO 200 GET /unsafe/test.jpg (192.168.59.3) 1246.18ms
 ```
-
-Options:
-| Name | Default | Description |
-| ---- | ------- | ----------- |
-| JPEGRECOMPRESS_PATH | | Path to the binary |
-| JPEGRECOMPRESS_METHOD | ssim | Set comparison method to one of 'mpe', 'ssim', 'ms-ssim', 'smallfry' |
-| JPEGRECOMPRESS_QUALITY_PRESET | medium | Set a quality preset: low, medium, high, veryhigh |
-| JPEGRECOMPRESS_QUALITY_MIN | 40 | Minimum JPEG quality (Overrides preset) |
-| JPEGRECOMPRESS_QUALITY_MAX | 95 | Maximum JPEG quality (Overrides preset) |
-| JPEGRECOMPRESS_LOOPS | 6 | Set the number of runs to attempt |
-| JPEGRECOMPRESS_ACCURATE | False | Favor accuracy over speed |
