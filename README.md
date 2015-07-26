@@ -45,3 +45,14 @@ Final optimized ssim at q=96: 0.994763
 New size is 57% of original (saved 45 kb)
 2015-07-24 17:49:22 tornado.access:INFO 200 GET /unsafe/test.jpg (192.168.59.3) 1246.18ms
 ```
+
+Options:
+| Name | Default | Description |
+| ---- | ------- | ----------- |
+| JPEGRECOMPRESS_PATH | | Path to the binary |
+| JPEGRECOMPRESS_METHOD | ssim | Set comparison method to one of 'mpe', 'ssim', 'ms-ssim', 'smallfry' |
+| JPEGRECOMPRESS_QUALITY_PRESET | medium | Set a quality preset: low, medium, high, veryhigh |
+| JPEGRECOMPRESS_QUALITY_MIN | 40 | Minimum JPEG quality (Overrides preset) |
+| JPEGRECOMPRESS_QUALITY_MAX | 95 | Maximum JPEG quality (Overrides preset) |
+| JPEGRECOMPRESS_LOOPS | 6 | Set the number of runs to attempt |
+| JPEGRECOMPRESS_ACCURATE | False | Favor accuracy over speed |

@@ -20,18 +20,36 @@ class Optimizer(BaseOptimizer):
         super(Optimizer, self).__init__(context)
 
         self.runnable = True
-        self.jpegrecompress_path = self.context.config.JPEGRECOMPRESS_PATH
+        self.path = self.context.config.JPEGRECOMPRESS_PATH
+        self.method = self.context.config.JPEGRECOMPRESS_METHOD
+        self.quality_preset = self.context.config.JPEGRECOMPRESS_QUALITY_PRESET
+        self.quality_min = self.context.config.JPEGRECOMPRESS_QUALITY_MIN
+        self.quality_max = self.context.config.JPEGRECOMPRESS_QUALITY_MAX
+        self.loops = self.context.config.JPEGRECOMPRESS_LOOPS
+        self.accurate = self.context.config.JPEGRECOMPRESS_ACCURATE
 
-        if not (os.path.isfile(self.jpegrecompress_path) and os.access(self.jpegrecompress_path, os.X_OK)):
-            logger.error("ERROR jpeg-recompress path '{0}' is not accessible".format(self.jpegrecompress_path))
+        if not (os.path.isfile(self.path) and os.access(self.path, os.X_OK)):
+            logger.error("ERROR jpeg-recompress path '{0}' is not accessible".format(self.path))
             self.runnable = False
+
+        if self.method not in ['mpe', 'ssim', 'ms-ssim', 'smallfry']:
+            self.method = 'ssim'
+
+        if self.quality_preset and self.quality_preset not in ['low', 'medium', 'high', 'veryhigh']:
+            self.quality_preset = 'medium'
 
     def should_run(self, image_extension, buffer):
         return ('jpg' in image_extension or 'jpeg' in image_extension) and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s --strip --accurate --loops 10 %s %s ' % (
-            self.jpegrecompress_path,
+        command = '%s --method %s %s %s %s --strip %s --loops %s %s %s ' % (
+            self.path,
+            self.method,
+            '--quality ' + self.quality_preset if self.quality_preset else '',
+            '--min ' + self.quality_min if self.quality_min else '',
+            '--max ' + self.quality_max if self.quality_max else '',
+            '--accurate' if self.accurate else '',
+            self.loops,
             input_file,
             output_file,
         )
