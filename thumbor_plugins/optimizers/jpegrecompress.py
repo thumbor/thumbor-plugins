@@ -27,6 +27,7 @@ class Optimizer(BaseOptimizer):
         self.quality_max = self.context.config.JPEGRECOMPRESS_QUALITY_MAX
         self.loops = self.context.config.JPEGRECOMPRESS_LOOPS
         self.accurate = self.context.config.JPEGRECOMPRESS_ACCURATE
+        self.subsample = self.context.config.JPEGRECOMPRESS_SUBSAMPLE
 
         if not (os.path.isfile(self.path) and os.access(self.path, os.X_OK)):
             logger.error("ERROR jpeg-recompress path '{0}' is not accessible".format(self.path))
@@ -42,13 +43,14 @@ class Optimizer(BaseOptimizer):
         return ('jpg' in image_extension or 'jpeg' in image_extension) and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s --method %s %s %s %s --strip %s --loops %s %s %s ' % (
+        command = '%s --method %s %s %s %s --strip %s --subsample %s --loops %s %s %s ' % (
             self.path,
             self.method,
             '--quality ' + self.quality_preset if self.quality_preset else '',
             '--min ' + str(self.quality_min) if self.quality_min else '',
             '--max ' + str(self.quality_max) if self.quality_max else '',
             '--accurate' if self.accurate else '',
+            'default' if self.subsample else 'disable',
             self.loops,
             input_file,
             output_file,

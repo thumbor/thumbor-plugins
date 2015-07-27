@@ -23,6 +23,7 @@ This optimizer uses the tool [JPEG-Archive](https://github.com/danielgtaylor/jpe
 | JPEGRECOMPRESS_QUALITY_MAX | 95 | Maximum JPEG quality (Overrides preset) |
 | JPEGRECOMPRESS_LOOPS | 6 | Set the number of runs to attempt |
 | JPEGRECOMPRESS_ACCURATE | False | Favor accuracy over speed |
+| JPEGRECOMPRESS_SUBSAMPLE | True | Enables / disables subsampling |
 
 Images should be kept on the highest quality settings to achieve best results.
 
