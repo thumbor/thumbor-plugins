@@ -20,3 +20,10 @@ Config.define(
     'Optimization level for optipng (0-7)',
     'Optimizers'
 )
+
+Config.define(
+    'JP2_QUALITY',
+    '41',
+    'Optimization level for jp2 optimizer',
+    'Optimizers'
+)
