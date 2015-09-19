@@ -13,13 +13,14 @@ from os.path import abspath, dirname, join
 import tempfile
 import unittest
 from derpconf.config import Config
-from thumbor.context import Context
+from thumbor.context import Context, RequestParameters
 from thumbor.utils import which
 
 __dirname = abspath(dirname(__file__))
 
 from thumbor_plugins.optimizers.pngcrush import Optimizer as PngcrushOptimizer
 from thumbor_plugins.optimizers.optipng import Optimizer as OptipngOptimizer
+from thumbor_plugins.optimizers.jp2 import Optimizer as Jp2Optimizer
 
 fixtures_folder = join(abspath(dirname(__file__)), 'fixtures')
 
@@ -48,10 +49,10 @@ class PngcrushOptimizerTest(unittest.TestCase):
     def test_pngcrush_should_optimize_png(self):
         optimizer = PngcrushOptimizer(self.get_context())
         temp = tempfile.NamedTemporaryFile()
-        optimizer.optimize(None, fixtures_folder + '/img/fixture2.png', temp.name)
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
 
-        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/fixture2.png'),
-                             "pngcrush could not lower filesize for img/fixture1.png")
+        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+                             "pngcrush could not lower filesize for img/bend.png")
 
 
 class OptipngOptimizerTest(unittest.TestCase):
@@ -78,7 +79,34 @@ class OptipngOptimizerTest(unittest.TestCase):
     def test_optipng_should_optimize_png(self):
         optimizer = OptipngOptimizer(self.get_context())
         temp = tempfile.NamedTemporaryFile()
-        optimizer.optimize(None, fixtures_folder + '/img/fixture2.png', temp.name)
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
 
-        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/fixture2.png'),
-                             "optipng could not lower filesize for img/fixture1.png")
+        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+                             "optipng could not lower filesize for img/bend.png")
+
+
+class Jp2OptimizerTest(unittest.TestCase):
+    def get_context(self):
+        conf = Config()
+        conf.STATSD_HOST = ''
+        ctx = Context(config=conf)
+        ctx.request = RequestParameters()
+        ctx.request.filters.append('jp2')
+
+        return ctx
+
+    def test_jp2_should_run_for_jpeg(self):
+        optimizer = Jp2Optimizer(self.get_context())
+        self.assertTrue(optimizer.should_run('jpeg', None))
+
+    def test_jp2_should_run_for_png(self):
+        optimizer = Jp2Optimizer(self.get_context())
+        self.assertTrue(optimizer.should_run('png', None))
+
+    def test_jp2_should_optimize(self):
+        optimizer = Jp2Optimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
+
+        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+                             "jp2 could not lower filesize for img/bend.png")
