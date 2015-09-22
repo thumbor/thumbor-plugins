@@ -36,8 +36,8 @@ Config.define(
 )
 
 Config.define(
-    'MOZJPEG_LEVEL',
-    '-optimize',
-    'Optimization level for mozjpeg (-optimize or 0-100, default -optimize)',
+    'MOZJPEG_QUALITY',
+    '75',
+    'Optimization level for mozjpeg (0-100)',
     'Optimizers'
 )
