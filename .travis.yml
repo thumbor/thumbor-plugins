@@ -28,6 +28,7 @@ before_install:
 
     - cd ~
     - wget https://github.com/mozilla/mozjpeg/archive/v3.1.tar.gz
+    - tar xf v3.1.tar.gz
     - cd mozjpeg-3.1/
     - autoreconf -fiv
     - mkdir build
