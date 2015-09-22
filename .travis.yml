@@ -14,7 +14,7 @@ matrix:
         - python: "pypy"
 before_install:
     - sudo apt-get update -y
-    - sudo apt-get -y install build-essential cmake libtool libwebp-dev openexr unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev
+    - sudo apt-get -y install build-essential cmake libtool libwebp-dev openexr unzip python-dev aptitude autoconf automake m4 nasm pkg-config
     - pip install setuptools
 
     - cd ~
