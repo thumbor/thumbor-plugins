@@ -27,3 +27,17 @@ Config.define(
     'Optimization level for jp2 optimizer',
     'Optimizers'
 )
+
+Config.define(
+    'MOZJPEG_PATH',
+    '/usr/local/bin/cjpeg',
+    'Path for the mozjpeg binary',
+    'Optimizers'
+)
+
+Config.define(
+    'MOZJPEG_LEVEL',
+    '-optimize',
+    'Optimization level for mozjpeg (-optimize or 0-100, default -optimize)',
+    'Optimizers'
+)
