@@ -14,7 +14,7 @@ matrix:
         - python: "pypy"
 before_install:
     - sudo apt-get update -y
-    - sudo apt-get -y install build-essential cmake libtool libwebp-dev openexr unzip python-dev aptitude
+    - sudo apt-get -y install build-essential cmake libtool libwebp-dev openexr unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev
     - pip install setuptools
 
     - cd ~
@@ -25,6 +25,15 @@ before_install:
     - make
     - sudo make install
     - sudo make clean
+
+    - cd ~
+    - wget https://github.com/mozilla/mozjpeg/archive/v3.1.tar.gz
+    - cd mozjpeg-3.1/
+    - autoreconf -fiv
+    - mkdir build
+    - cd build
+    - sh ../configure --prefix=/usr/local
+    - sudo make install
 
     - sudo ldconfig /usr/lib
 
