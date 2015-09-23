@@ -51,7 +51,7 @@ Config.define(
 
 Config.define(
     'PNGQUANT_QUALITY',
-    '0-100',
+    '65-80',
     'Optimization level for pngquant ([0..100]-[0..100])',
     'Optimizers'
 )

@@ -21,7 +21,7 @@ class Optimizer(BaseOptimizer):
 
         self.runnable = True
         self.pngquant_path = self.context.config.PNGQUANT_PATH
-        self.pngquant_quality = self.context.config.PNGQUANT_QUALITY or '75'
+        self.pngquant_quality = self.context.config.PNGQUANT_QUALITY or '65-80'
         self.pngquant_speed = self.context.config.PNGQUANT_SPEED or '3'
 
         if not (os.path.isfile(self.pngquant_path) and os.access(self.pngquant_path, os.X_OK)):
@@ -32,12 +32,6 @@ class Optimizer(BaseOptimizer):
         return 'png' in image_extension and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        # command = '%s --speed 1 --quality=%s %s >| %s' % (
-        #     self.pngquant_path,
-        #     self.pngquant_quality,
-        #     input_file,
-        #     output_file
-        # )
         command = 'cat %s | %s --speed %s --quality=%s - > %s' % (
             input_file,
             self.pngquant_path,
