@@ -12,7 +12,7 @@ matrix:
         - python: "3.4"
         - python: "pypy3"
         - python: "pypy"
-before_install:
+install:
     - sudo apt-get update -y
     - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config
     - pip install setuptools
@@ -27,13 +27,13 @@ before_install:
     - sudo make clean
 
     - sudo ldconfig /usr/lib
-
-install:
+    
     # install aptitude packages
     - cd ~/build/thumbor/thumbor-plugins
     - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
     - make setup
     
+    # installing mozjpeg before pillow (make setup) will create errors
     - cd ~
     - wget https://github.com/mozilla/mozjpeg/archive/v3.1.tar.gz
     - tar xf v3.1.tar.gz
