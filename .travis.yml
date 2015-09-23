@@ -27,12 +27,12 @@ install:
     - sudo make clean
 
     - sudo ldconfig /usr/lib
-    
+
     # install aptitude packages
-    - cd ~/build/thumbor/thumbor-plugins
+    - cd ~/build/okor/thumbor-plugins
     - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
     - make setup
-    
+
     # installing mozjpeg before pillow (make setup) will create errors
     - cd ~
     - wget https://github.com/mozilla/mozjpeg/archive/v3.1.tar.gz
@@ -43,7 +43,7 @@ install:
     - cd build
     - sh ../configure --prefix=/usr/local
     - sudo make install
-    
-    - cd ~/build/thumbor/thumbor-plugins
+
+    - cd ~/build/okor/thumbor-plugins
 script:
     - make test
