@@ -41,5 +41,5 @@ class Optimizer(BaseOptimizer):
             output_file,
         )
         with open(os.devnull) as null:
-            logger.debug("[OPTIPNG] running: " + command)
+            logger.debug("[MOZJPEG] running: " + command)
             subprocess.call(command, shell=True, stdin=null)
