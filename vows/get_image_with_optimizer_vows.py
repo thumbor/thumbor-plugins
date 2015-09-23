@@ -32,7 +32,7 @@ class BaseContext(TornadoHTTPContext):
 class GetImageWithPngcrush(BaseContext):
     def get_app(self):
         cfg = Config(SECURITY_KEY='ACME-SEC', PNGCRUSH_PATH=which('pngcrush'))
-        cfg.LOADER = "thumbor.loaders.file_loader"
+        cfg.LOADER = 'thumbor.loaders.file_loader'
         cfg.FILE_LOADER_ROOT_PATH = storage_path
         cfg.OPTIMIZERS = [
             'thumbor_plugins.optimizers.pngcrush',
@@ -61,7 +61,7 @@ class GetImageWithPngcrush(BaseContext):
 class GetImageWithOptipng(BaseContext):
     def get_app(self):
         cfg = Config(SECURITY_KEY='ACME-SEC', OPTIPNG_PATH=which('optipng'), OPTIPNG_LEVEL=1)
-        cfg.LOADER = "thumbor.loaders.file_loader"
+        cfg.LOADER = 'thumbor.loaders.file_loader'
         cfg.FILE_LOADER_ROOT_PATH = storage_path
         cfg.OPTIMIZERS = [
             'thumbor_plugins.optimizers.optipng',
@@ -89,7 +89,7 @@ class GetImageWithOptipng(BaseContext):
 class GetImageWithJp2(BaseContext):
     def get_app(self):
         cfg = Config(SECURITY_KEY='ACME-SEC')
-        cfg.LOADER = "thumbor.loaders.file_loader"
+        cfg.LOADER = 'thumbor.loaders.file_loader'
         cfg.FILE_LOADER_ROOT_PATH = storage_path
         cfg.OPTIMIZERS = [
             'thumbor_plugins.optimizers.jp2',
@@ -117,7 +117,7 @@ class GetImageWithJp2(BaseContext):
 class GetImageWithMozjpeg(BaseContext):
     def get_app(self):
         cfg = Config(SECURITY_KEY='ACME-SEC')
-        cfg.LOADER = "thumbor.loaders.file_loader"
+        cfg.LOADER = 'thumbor.loaders.file_loader'
         cfg.FILE_LOADER_ROOT_PATH = storage_path
         cfg.OPTIMIZERS = [
             'thumbor_plugins.optimizers.mozjpeg',
@@ -145,7 +145,7 @@ class GetImageWithMozjpeg(BaseContext):
 class GetImageWithPngquant(BaseContext):
     def get_app(self):
         cfg = Config(SECURITY_KEY='ACME-SEC')
-        cfg.LOADER = "thumbor.loaders.file_loader"
+        cfg.LOADER = 'thumbor.loaders.file_loader'
         cfg.FILE_LOADER_ROOT_PATH = storage_path
         cfg.OPTIMIZERS = [
             'thumbor_plugins.optimizers.pngquant',
