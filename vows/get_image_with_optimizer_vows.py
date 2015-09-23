@@ -114,7 +114,7 @@ class GetImageWithJp2(BaseContext):
             expect(response.code).to_equal(200)
 
 @Vows.batch
-class GetImageWithJp2(BaseContext):
+class GetImageWithMozjpeg(BaseContext):
     def get_app(self):
         cfg = Config(SECURITY_KEY='ACME-SEC')
         cfg.LOADER = "thumbor.loaders.file_loader"
