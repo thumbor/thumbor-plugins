@@ -21,6 +21,7 @@ __dirname = abspath(dirname(__file__))
 from thumbor_plugins.optimizers.pngcrush import Optimizer as PngcrushOptimizer
 from thumbor_plugins.optimizers.optipng import Optimizer as OptipngOptimizer
 from thumbor_plugins.optimizers.jp2 import Optimizer as Jp2Optimizer
+from thumbor_plugins.optimizers.mozjpeg import Optimizer as MozjpegOptimizer
 
 fixtures_folder = join(abspath(dirname(__file__)), 'fixtures')
 
@@ -110,3 +111,42 @@ class Jp2OptimizerTest(unittest.TestCase):
 
         self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
                              "jp2 could not lower filesize for img/bend.png")
+
+class MozjpegOptimizerTest(unittest.TestCase):
+    def get_context(self):
+        conf = Config()
+        conf.STATSD_HOST = ''
+        ctx = Context(config=conf)
+        ctx.request = RequestParameters()
+
+        return ctx
+
+    def test_mozjpeg_should_run_for_jpeg(self):
+        optimizer = MozjpegOptimizer(self.get_context())
+        self.assertTrue(optimizer.should_run('jpeg', None))
+
+    def test_mozjpeg_should_not_run_for_png(self):
+        optimizer = MozjpegOptimizer(self.get_context())
+        self.assertFalse(optimizer.should_run('png', None))
+
+    def test_mozjpeg_should_optimize(self):
+        optimizer = MozjpegOptimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
+
+        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+                             "mozjpeg could not lower filesize for img/bend.png")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
