@@ -22,6 +22,7 @@ class Optimizer(BaseOptimizer):
         self.runnable = True
         self.pngquant_path = self.context.config.PNGQUANT_PATH
         self.pngquant_quality = self.context.config.PNGQUANT_QUALITY or '75'
+        self.pngquant_speed = self.context.config.PNGQUANT_SPEED or '3'
 
         if not (os.path.isfile(self.pngquant_path) and os.access(self.pngquant_path, os.X_OK)):
             logger.error("ERROR pnqquant path '{0}' is not accessible".format(self.pngquant_path))
@@ -37,9 +38,10 @@ class Optimizer(BaseOptimizer):
         #     input_file,
         #     output_file
         # )
-        command = 'cat %s | %s --speed 1 --quality=%s - > %s' % (
+        command = 'cat %s | %s --speed %s --quality=%s - > %s' % (
             input_file,
             self.pngquant_path,
+            self.pngquant_speed,
             self.pngquant_quality,
             output_file,
         )

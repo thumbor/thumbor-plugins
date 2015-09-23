@@ -162,15 +162,3 @@ class PngquantOptimizerTest(unittest.TestCase):
 
         self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
                              "pngquant could not lower filesize for img/bend.png")
-
-
-
-
-
-
-
-
-
-
-
-

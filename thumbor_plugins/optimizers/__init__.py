@@ -55,3 +55,10 @@ Config.define(
     'Optimization level for pngquant ([0..100]-[0..100])',
     'Optimizers'
 )
+
+Config.define(
+    'PNGQUANT_SPEED',
+    '1',
+    'Optimization speed for pngquant 1-11, 1 is slowest',
+    'Optimizers'
+)
