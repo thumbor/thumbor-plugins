@@ -29,7 +29,7 @@ install:
     - sudo ldconfig /usr/lib
 
     # install aptitude packages
-    - cd ~/build/okor/thumbor-plugins
+    - cd ~/build/thumbor/thumbor-plugins
     - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
     - make setup
 
@@ -51,6 +51,6 @@ install:
     - make
     - sudo make install
 
-    - cd ~/build/okor/thumbor-plugins
+    - cd ~/build/thumbor/thumbor-plugins
 script:
     - make test
