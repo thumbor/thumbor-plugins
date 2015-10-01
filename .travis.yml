@@ -14,7 +14,7 @@ matrix:
         - python: "pypy"
 install:
     - sudo apt-get update -y
-    - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev
+    - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev libmagickwand-dev pngnq pngcrush
     - pip install setuptools
 
     - cd ~
@@ -27,6 +27,15 @@ install:
     - sudo make clean
 
     - sudo ldconfig /usr/lib
+
+    - cd ~
+    - wget https://github.com/rflynn/imgmin/archive/v1.1.tar.gz
+    - tar xf v1.1.tar.gz
+    - cd imgmin-1.1
+    - autoreconf -fi
+    - ./configure
+    - make
+    - sudo make install
 
     # install aptitude packages
     - cd ~/build/thumbor/thumbor-plugins
