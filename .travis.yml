@@ -12,11 +12,14 @@ matrix:
         - python: "3.4"
         - python: "pypy3"
         - python: "pypy"
+env:
+    - PROJECT_DIR=$PWD
 install:
     - sudo apt-get update -y
     - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev libmagickwand-dev pngnq pngcrush
     - pip install setuptools
 
+    # install openjpeg for jpeg2000 support
     - cd ~
     - wget https://github.com/uclouvain/openjpeg/archive/version.2.0.1.tar.gz
     - tar xf version.2.0.1.tar.gz
@@ -26,8 +29,18 @@ install:
     - sudo make install
     - sudo make clean
 
+    # reload libs so pillow will find jpeg2000
     - sudo ldconfig /usr/lib
 
+    # install pngquant2
+    - cd ~
+    - wget https://github.com/pornel/pngquant/archive/2.5.0.tar.gz
+    - tar xf 2.5.0.tar.gz
+    - cd pngquant-2.5.0
+    - make
+    - sudo make install
+
+    # install imgmin
     - cd ~
     - wget https://github.com/rflynn/imgmin/archive/v1.1.tar.gz
     - tar xf v1.1.tar.gz
@@ -53,13 +66,6 @@ install:
     - sh ../configure --prefix=/usr/local
     - sudo make install
 
-    - cd ~
-    - wget https://github.com/pornel/pngquant/archive/2.5.0.tar.gz
-    - tar xf 2.5.0.tar.gz
-    - cd pngquant-2.5.0
-    - make
-    - sudo make install
-
-    - cd ~/build/thumbor/thumbor-plugins
+    - cd $PROJECT_DIR
 script:
     - make test
