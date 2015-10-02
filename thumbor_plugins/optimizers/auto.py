@@ -31,11 +31,10 @@ class Optimizer(BaseOptimizer):
 
     def image_contains_alpha(self, input_file):
         stats = ImageStat.Stat(input_file).extrema
+        has_alpha = False
         if len(stats) > 3:
             if stats[3][0] < 255:
                 has_alpha = True
-            else:
-                has_alpha = False
 
         return has_alpha
 
@@ -45,6 +44,7 @@ class Optimizer(BaseOptimizer):
             intermediary = output_file + '-intermediate'
             Image.open(input_file).save(intermediary, 'JPEG')
             input_file = intermediary
+            self.set_header('Content-Type', 'image/jpeg')
 
         command = '%s %s %s > /dev/null 2>&1' % (
             self.imgmin_path,
