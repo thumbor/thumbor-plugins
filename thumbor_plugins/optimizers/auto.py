@@ -41,7 +41,7 @@ class Optimizer(BaseOptimizer):
 
 
     def optimize(self, buffer, input_file, output_file):
-        if self.image_contains_alpha:
+        if self.image_contains_alpha == False:
             intermediary = output_file + '-intermediate'
             Image.open(input_file).save(intermediary, 'JPEG')
             input_file = intermediary
