@@ -19,7 +19,6 @@ from thumbor.context import Context, ServerParameters
 from thumbor.utils import which
 from thumbor.engines.pil import Engine as PILEngine
 
-
 storage_path = abspath(join(dirname(__file__), 'fixtures/'))
 
 

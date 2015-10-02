@@ -18,6 +18,8 @@ from thumbor.utils import which
 
 __dirname = abspath(dirname(__file__))
 
+from thumbor.engines import BaseEngine
+
 from thumbor_plugins.optimizers.pngcrush import Optimizer as PngcrushOptimizer
 from thumbor_plugins.optimizers.optipng import Optimizer as OptipngOptimizer
 from thumbor_plugins.optimizers.jp2 import Optimizer as Jp2Optimizer
@@ -213,3 +215,47 @@ class AutoOptimizerTest(unittest.TestCase):
 
         self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.jpg'),
                              "Auto could not lower filesize for img/bend.jpg")
+
+    def test_auto_should_optimize_png_without_alpha_to_jpeg(self):
+        optimizer = AutoOptimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
+
+        temp_buffer = open(temp.name).read()
+        self.assertTrue(BaseEngine.get_mimetype(temp_buffer) == 'image/jpeg', "MIME type should be image/jpeg")
+
+    def test_auto_should_optimize_png_with_alpha_to_png(self):
+        optimizer = AutoOptimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend_with_alpha.png', temp.name)
+
+        temp_buffer = open(temp.name).read()
+        self.assertTrue(BaseEngine.get_mimetype(temp_buffer) == 'image/png', "MIME type should be image/png")
+
+    def test_auto_should_optimize_jpeg_to_jpeg(self):
+        optimizer = AutoOptimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend.jpg', temp.name)
+
+        temp_buffer = open(temp.name).read()
+        self.assertTrue(BaseEngine.get_mimetype(temp_buffer) == 'image/jpeg', "MIME type should be image/jpeg")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

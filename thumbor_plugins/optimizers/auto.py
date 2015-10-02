@@ -29,22 +29,17 @@ class Optimizer(BaseOptimizer):
     def should_run(self, image_extension, buffer):
         return self.runnable and 'auto' in self.context.request.filters and ('png' in image_extension or 'jpg' in image_extension or 'jpeg' in image_extension)
 
-    def image_contains_alpha(self, input_file):
-        stats = ImageStat.Stat(input_file).extrema
-        has_alpha = False
-        if len(stats) > 3:
-            if stats[3][0] < 255:
-                has_alpha = True
-
-        return has_alpha
-
-
     def optimize(self, buffer, input_file, output_file):
-        if self.image_contains_alpha == False:
+        input_image = Image.open(input_file)
+        stats = ImageStat.Stat(input_image).extrema
+        has_alpha = False
+        if len(stats) > 3 and (stats[3][0] < 255):
+            has_alpha = True
+
+        if has_alpha == False:
             intermediary = output_file + '-intermediate'
-            Image.open(input_file).save(intermediary, 'JPEG')
+            input_image.save(intermediary, 'JPEG')
             input_file = intermediary
-            self.set_header('Content-Type', 'image/jpeg')
 
         command = '%s %s %s > /dev/null 2>&1' % (
             self.imgmin_path,
@@ -54,7 +49,3 @@ class Optimizer(BaseOptimizer):
         with open(os.devnull) as null:
             logger.debug("[AUTO IMGMIN] running: " + command)
             subprocess.call(command, shell=True, stdin=null)
-
-
-
-
