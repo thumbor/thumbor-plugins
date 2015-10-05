@@ -66,6 +66,6 @@ Config.define(
 Config.define(
     'IMGMIN_PATH',
     '/usr/local/bin/imgmin',
-    'Path for the pngquant binary',
+    'Path for the imgmin binary',
     'Optimizers'
 )
