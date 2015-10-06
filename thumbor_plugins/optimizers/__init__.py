@@ -62,3 +62,10 @@ Config.define(
     'Optimization speed for pngquant 1-11, 1 is slowest',
     'Optimizers'
 )
+
+Config.define(
+    'IMGMIN_PATH',
+    '/usr/local/bin/imgmin',
+    'Path for the imgmin binary',
+    'Optimizers'
+)
