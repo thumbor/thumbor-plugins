@@ -32,12 +32,12 @@ class Optimizer(BaseOptimizer):
     def optimize(self, buffer, input_file, output_file):
         input_image = Image.open(input_file)
         stats = ImageStat.Stat(input_image).extrema
+        intermediary = output_file + '-intermediate'
         has_alpha = False
         if len(stats) > 3 and (stats[3][0] < 255):
             has_alpha = True
 
         if has_alpha == False:
-            intermediary = output_file + '-intermediate'
             input_image.save(intermediary, 'JPEG')
             input_file = intermediary
 
@@ -49,3 +49,6 @@ class Optimizer(BaseOptimizer):
         with open(os.devnull) as null:
             logger.debug("[AUTO IMGMIN] running: " + command)
             subprocess.call(command, shell=True, stdin=null)
+
+        if input_file == intermediary:
+            os.unlink(intermediary)
