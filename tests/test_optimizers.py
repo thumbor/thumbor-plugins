@@ -26,6 +26,7 @@ from thumbor_plugins.optimizers.jp2 import Optimizer as Jp2Optimizer
 from thumbor_plugins.optimizers.mozjpeg import Optimizer as MozjpegOptimizer
 from thumbor_plugins.optimizers.pngquant import Optimizer as PngquantOptimizer
 from thumbor_plugins.optimizers.auto import Optimizer as AutoOptimizer
+from thumbor_plugins.optimizers.zopflipng import Optimizer as ZopflipngOptimizer
 
 fixtures_folder = join(abspath(dirname(__file__)), 'fixtures')
 
@@ -166,6 +167,43 @@ class PngquantOptimizerTest(unittest.TestCase):
         self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
                              "pngquant could not lower filesize for img/bend.png")
 
+class ZopflipngOptimizerTest(unittest.TestCase):
+    def setUp(self):
+        self.zopflipng_path = which('zopflipng')
+        if not (os.path.isfile(self.zopflipng_path) and os.access(self.zopflipng_path, os.X_OK)):
+            raise unittest.SkipTest("Unable to locate optipng at {}".format(self.zopflipng_path))
+
+    def get_context(self):
+        conf = Config()
+        conf.ZOPFLIPNG_PATH = self.zopflipng_path
+        conf.STATSD_HOST = ''
+
+        return Context(config=conf)
+
+    def test_zopflipng_should_not_run_for_jpeg(self):
+        optimizer = ZopflipngOptimizer(self.get_context())
+        self.assertFalse(optimizer.should_run('jpeg', None))
+
+    def test_zopflipng_should_not_run_when_unavailable(self):
+        conf = Config()
+        conf.ZOPFLIPNG_PATH = '/tmp/asdf'
+        ctx = Context(config=conf)
+        optimizer = ZopflipngOptimizer(ctx)
+        self.assertFalse(optimizer.runnable)
+        self.assertFalse(optimizer.should_run('png', None))
+
+    def test_zopflipng_should_run_for_png(self):
+        optimizer = ZopflipngOptimizer(self.get_context())
+        self.assertTrue(optimizer.should_run('png', None))
+
+    def test_zopflipng_should_optimize(self):
+        optimizer = ZopflipngOptimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
+
+        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+                             "zopflipng could not lower filesize for img/bend.png")
+
 class AutoOptimizerTest(unittest.TestCase):
     def get_context(self):
         conf = Config()
@@ -239,23 +277,4 @@ class AutoOptimizerTest(unittest.TestCase):
 
         temp_buffer = open(temp.name).read()
         self.assertTrue(BaseEngine.get_mimetype(temp_buffer) == 'image/jpeg', "MIME type should be image/jpeg")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
