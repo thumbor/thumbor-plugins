@@ -31,7 +31,7 @@ class Optimizer(BaseOptimizer):
         return 'png' in image_extension and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s -quiet -preserve -force -keep -o%d -out %s -- %s ' % (
+        command = '%s -quiet -preserve -force -o%d -out %s -- %s ' % (
             self.optipng_path,
             self.optipng_level,
             output_file,
