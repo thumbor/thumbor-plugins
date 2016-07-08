@@ -161,10 +161,11 @@ class PngquantOptimizerTest(unittest.TestCase):
 
     def test_pngquant_should_optimize(self):
         optimizer = PngquantOptimizer(self.get_context())
-        temp = tempfile.NamedTemporaryFile()
-        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
+        with open(fixtures_folder + '/img/bend.png', 'rb') as f:
+            buffer = f.read()
+        return_buffer = optimizer.run_optimizer('.png', buffer)
 
-        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+        self.assertLessEqual(len(return_buffer), len(buffer),
                              "pngquant could not lower filesize for img/bend.png")
 
 class ZopflipngOptimizerTest(unittest.TestCase):

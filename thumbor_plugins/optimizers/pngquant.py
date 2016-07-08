@@ -9,7 +9,7 @@
 
 
 import os
-import subprocess
+from subprocess import Popen, PIPE
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
@@ -31,14 +31,25 @@ class Optimizer(BaseOptimizer):
     def should_run(self, image_extension, buffer):
         return 'png' in image_extension and self.runnable
 
-    def optimize(self, buffer, input_file, output_file):
-        command = 'cat %s | %s --speed %s --quality=%s - > %s' % (
-            input_file,
+    def run_optimizer(self, image_extension, buffer):
+        if not self.should_run(image_extension, buffer):
+            return buffer
+
+        command = [
             self.pngquant_path,
+            '--speed',
             self.pngquant_speed,
+            '--quality',
             self.pngquant_quality,
-            output_file,
-        )
-        with open(os.devnull) as null:
-            logger.debug("[PNGQUANT] running: " + command)
-            subprocess.call(command, shell=True, stdin=null)
+            '-'
+        ]
+
+        process = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process.communicate(buffer)
+
+        if process.returncode != 0:
+            logger.warn('[PNGQUANT] finished with non-zero return code (%d): %s'
+                        % (process.returncode, stderr))
+            return buffer
+
+        return stdout
