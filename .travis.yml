@@ -72,7 +72,7 @@ install:
     - tar xf zopfli-1.0.1.tar.gz
     - cd zopfli-zopfli-1.0.1
     - make zopflipng
-    - cp zopflipng /usr/local/bin
+    - sudo cp zopflipng /usr/local/bin
 
     - cd $PROJECT_DIR
 script:
