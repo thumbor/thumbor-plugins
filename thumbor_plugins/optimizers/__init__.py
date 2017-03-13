@@ -69,3 +69,17 @@ Config.define(
     'Path for the imgmin binary',
     'Optimizers'
 )
+
+Config.define(
+    'AUTOJPEG_QUALITY',
+    '90',
+    'Quality level for autojpeg optimizer. Possible values: 0-100',
+    'Optmizers'
+)
+
+Config.define(
+    'AUTOJPEG_SUBSAMPLING',
+    '0',
+    'Quality level for autojpeg optimizer. Possible values: -1, 0, 1, 2. Keep original = -1, 4:4:4 = 0, 4:2:2 = 1, 4:1:1 = 2',
+    'Optmizers'
+)
