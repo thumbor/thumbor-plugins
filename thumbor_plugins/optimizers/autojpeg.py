@@ -24,7 +24,7 @@ class Optimizer(BaseOptimizer):
         self.autojpeg_subsampling = int(self.context.config.AUTOJPEG_SUBSAMPLING)
 
     def should_run(self, image_extension, buffer):
-        run_possible = 'autojpeg' in self.context.request.filters and 'png' in image_extension
+        run_possible = 'png' in image_extension
         input_image = Image.open(BytesIO(buffer))
         extrema = input_image.getextrema()
         has_alpha = (len(extrema) > 3) and (extrema[3][0] < 255)
