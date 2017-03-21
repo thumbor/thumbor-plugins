@@ -218,7 +218,7 @@ class GetImageWithAutoJpeg(BaseContext):
 
         return application
 
-    class ShouldBeAuto(BaseContext):
+    class ShouldBeAutoJpeg(BaseContext):
         def topic(self):
             return self.get('/unsafe/bend.png')
 
