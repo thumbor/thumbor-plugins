@@ -24,13 +24,16 @@ class Optimizer(BaseOptimizer):
         self.autojpeg_subsampling = int(self.context.config.AUTOJPEG_SUBSAMPLING)
 
     def should_run(self, image_extension, buffer):
-        run_possible = 'png' in image_extension
+        if not 'png' in image_extension:
+            return False;
+
         input_image = Image.open(BytesIO(buffer))
         extrema = input_image.getextrema()
         has_alpha = (len(extrema) > 3) and (extrema[3][0] < 255)
-        should_pass = input_image.mode == 'P' or has_alpha
+        if input_image.mode == 'P' or has_alpha:
+            return False;
 
-        return run_possible and not should_pass
+        return True;
 
     def optimize(self, buffer, input_file, output_file):
         return Image.open(input_file).save(output_file, 'JPEG', quality=self.autojpeg_quality, optimize=True, subsampling=self.autojpeg_subsampling)
