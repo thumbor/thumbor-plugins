@@ -26,6 +26,7 @@ from thumbor_plugins.optimizers.jp2 import Optimizer as Jp2Optimizer
 from thumbor_plugins.optimizers.mozjpeg import Optimizer as MozjpegOptimizer
 from thumbor_plugins.optimizers.pngquant import Optimizer as PngquantOptimizer
 from thumbor_plugins.optimizers.auto import Optimizer as AutoOptimizer
+from thumbor_plugins.optimizers.autojpeg import Optimizer as AutoJpeg
 
 fixtures_folder = join(abspath(dirname(__file__)), 'fixtures')
 
@@ -240,6 +241,38 @@ class AutoOptimizerTest(unittest.TestCase):
         temp_buffer = open(temp.name).read()
         self.assertTrue(BaseEngine.get_mimetype(temp_buffer) == 'image/jpeg', "MIME type should be image/jpeg")
 
+class AutoJpegTest(unittest.TestCase):
+    def get_context(self):
+        conf = Config()
+        conf.STATSD_HOST = ''
+        ctx = Context(config=conf)
+        ctx.request = RequestParameters()
+
+        return ctx
+
+    def test_autojpeg_should_not_run_for_gif(self):
+        optimizer = AutoJpeg(self.get_context())
+        self.assertFalse(optimizer.should_run('gif', None))
+
+    def test_autojpeg_should_not_run_for_jpg(self):
+        optimizer = AutoJpeg(self.get_context())
+        self.assertFalse(optimizer.should_run('jpg', None))
+
+    def test_autojpeg_should_run_for_jpeg(self):
+        optimizer = AutoJpeg(self.get_context())
+        self.assertFalse(optimizer.should_run('jpeg', None))
+
+    def test_autojpeg_should_run_for_png(self):
+        optimizer = AutoJpeg(self.get_context())
+        self.assertTrue(optimizer.should_run('png', None))
+
+    def test_autojpeg_should_optimize_png_without_alpha(self):
+        optimizer = AutoJpeg(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/bend.png', temp.name)
+
+        self.assertLessEqual(os.path.getsize(temp.name), os.path.getsize(fixtures_folder + '/img/bend.png'),
+                             "AutoJpeg could not lower filesize for img/bend.png")
 
 
 
