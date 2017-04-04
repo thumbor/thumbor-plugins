@@ -39,4 +39,5 @@ class Optimizer(BaseOptimizer):
         )
         with open(os.devnull) as null:
             logger.debug("[OPTIPNG] running: " + command)
+            os.unlink(output_file)
             subprocess.call(command, shell=True, stdin=null)
