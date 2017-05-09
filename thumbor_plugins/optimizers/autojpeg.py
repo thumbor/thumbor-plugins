@@ -36,4 +36,9 @@ class Optimizer(BaseOptimizer):
         return True;
 
     def optimize(self, buffer, input_file, output_file):
-        return Image.open(input_file).save(output_file, 'JPEG', quality=self.autojpeg_quality, optimize=True, subsampling=self.autojpeg_subsampling)
+        source_image = Image.open(input_file)
+        if source_image.mode != 'RGB':
+            source_image = source_image.convert('RGB')
+
+        return source_image.save(output_file, 'JPEG', quality=self.autojpeg_quality, optimize=True, subsampling=self.autojpeg_subsampling)
+
