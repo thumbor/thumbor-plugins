@@ -69,3 +69,31 @@ Config.define(
     'Path for the imgmin binary',
     'Optimizers'
 )
+
+Config.define(
+    'ZOPFLIPNG_PATH',
+    '/usr/local/bin/zopflipng',
+    'Path for the zopflipng binary',
+    'Optimizers'
+)
+
+Config.define(
+    'ZOPFLIPNG_COMPRESS_MORE',
+    False,
+    'zopflipng: compress more: use more iterations (depending on file size) and use block split strategy 3',
+    'Optimizers'
+)
+
+Config.define(
+    'ZOPFLIPNG_LOSSY_TRANSPARENT',
+    True,
+    'zopflipng: remove colors behind alpha channel 0. No visual difference, removes hidden information.',
+    'Optimizers'
+)
+
+Config.define(
+    'ZOPFLIPNG_LOSSY_8BIT',
+    False,
+    'zopflipng: convert 16-bit per channel image to 8-bit per channel.',
+    'Optimizers'
+)

@@ -168,6 +168,33 @@ class GetImageWithPngquant(BaseContext):
         def should_be_ok(self, response):
             expect(response.code).to_equal(200)
 
+@Vows.batch
+class GetImageWithZopflipng(BaseContext):
+    def get_app(self):
+        cfg = Config(SECURITY_KEY='ACME-SEC')
+        cfg.LOADER = 'thumbor.loaders.file_loader'
+        cfg.FILE_LOADER_ROOT_PATH = storage_path
+        cfg.OPTIMIZERS = [
+            'thumbor_plugins.optimizers.zopflipng',
+        ]
+
+        importer = Importer(cfg)
+        importer.import_modules()
+        server = ServerParameters(8889, 'localhost', 'thumbor.conf', None, 'info', None)
+        server.security_key = 'ACME-SEC'
+        ctx = Context(server, cfg, importer)
+        application = ThumborServiceApp(ctx)
+
+        self.engine = PILEngine(ctx)
+
+        return application
+
+    class ShouldBeZopflipng(BaseContext):
+        def topic(self):
+            return self.get('/unsafe/plasma_rnd5.png')
+
+        def should_be_ok(self, response):
+            expect(response.code).to_equal(200)
 
 @Vows.batch
 class GetImageWithAuto(BaseContext):
