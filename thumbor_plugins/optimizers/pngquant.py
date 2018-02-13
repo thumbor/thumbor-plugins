@@ -44,7 +44,7 @@ class Optimizer(BaseOptimizer):
             '-'
         ]
 
-        process = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        process = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
         stdout, stderr = process.communicate(buffer)
 
         if process.returncode != 0:
