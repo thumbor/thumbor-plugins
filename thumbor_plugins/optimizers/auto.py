@@ -23,7 +23,7 @@ class Optimizer(BaseOptimizer):
         self.imgmin_path = self.context.config.IMGMIN_PATH
 
         if not ( os.path.isfile(self.imgmin_path) ):
-            logger.error("ERROR path '{0}' or '{1}' is not accessible".format(self.imgmin_path))
+            logger.error("ERROR path '{0}' is not accessible".format(self.imgmin_path))
             self.runnable = False
 
     def should_run(self, image_extension, buffer):
@@ -49,3 +49,6 @@ class Optimizer(BaseOptimizer):
         with open(os.devnull) as null:
             logger.debug("[AUTO IMGMIN] running: " + command)
             subprocess.call(command, shell=True, stdin=null)
+
+    def has_alpha(self, img):
+        return img and (img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info))
