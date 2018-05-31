@@ -8,9 +8,33 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2011 globo.com timehome@corp.globo.com
 
+import sys
 from setuptools import setup
 from thumbor_plugins import __version__
 
+extras_require={
+    'tests': [
+        'tornado-pyvows>=0.6.0',
+        'coverage',
+        'mock',
+        'colorama',
+        # https://github.com/python-pillow/Pillow/issues/2609
+        'pillow<4.2.0',
+        'nose'
+    ]
+}
+
+# https://pypi.org/project/gevent/
+if sys.version_info == (2,5):
+    extras_require['tests'].insert(0, 'gevent>=1.0,<1.1')
+elif sys.version_info == (2,6):
+    extras_require['tests'].insert(0, 'gevent>=1.1,<1.2')
+elif sys.version_info <= (2, 7, 8):
+    extras_require['tests'].insert(0, 'gevent>=1.2,<1.3')
+elif sys.version_info <= (3,4) and sys.version_info >= (3,3):
+    extras_require['tests'].insert(0, 'gevent==1.2')
+else:
+    extras_require['tests'].insert(0, 'gevent')
 
 setup(
     name='thumbor-plugins',
@@ -37,15 +61,5 @@ setup(
     install_requires=[
         'thumbor',
     ],
-    extras_require={
-        'tests': [
-            'tornado-pyvows>=0.6.0',
-            'coverage',
-            'mock',
-            'colorama',
-            # https://github.com/python-pillow/Pillow/issues/2609
-            'pillow<4.2.0',
-            'nose'
-        ]
-    }
+    extras_require=extras_require
 )

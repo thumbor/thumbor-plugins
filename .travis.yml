@@ -17,7 +17,9 @@ env:
 install:
     - sudo apt-get update -y
     - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev libmagickcore-dev libmagickwand-dev pngnq pngcrush pngquant
-    - pip install setuptools
+    - pip install --upgrade pip
+    - pip install --upgrade setuptools==39.1.0
+    - easy_install --version
 
     # install openjpeg for jpeg2000 support
     - cd ~
