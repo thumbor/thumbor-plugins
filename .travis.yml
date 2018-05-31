@@ -16,7 +16,7 @@ env:
     - PROJECT_DIR=$PWD
 install:
     - sudo apt-get update -y
-    - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev libmagickwand-dev pngnq pngcrush
+    - sudo apt-get -y install build-essential cmake libtool libwebp-dev unzip python-dev aptitude autoconf automake m4 nasm pkg-config libpng-dev libmagickcore-dev libmagickwand-dev pngnq pngcrush pngquant
     - pip install setuptools
 
     # install openjpeg for jpeg2000 support
@@ -42,9 +42,12 @@ install:
 
     # install imgmin
     - cd ~
+    - sudo apt-get install imagemagick libgraphicsmagick1-dev libmagickwand-dev perlmagick apache2-prefork-dev
     - wget https://github.com/rflynn/imgmin/archive/v1.1.tar.gz
     - tar xf v1.1.tar.gz
     - cd imgmin-1.1
+    # because of https://github.com/rflynn/imgmin/issues/21
+    - cp $PROJECT_DIR/imgmin_apache2_makefile.am src/apache2/Makefile.am
     - autoreconf -fi
     - ./configure
     - make
@@ -63,7 +66,7 @@ install:
     - autoreconf -fiv
     - mkdir build
     - cd build
-    - sh ../configure --prefix=/usr/local
+    - sh ../configure --disable-shared --enable-static --prefix=/usr/local
     - sudo make install
 
     - cd $PROJECT_DIR

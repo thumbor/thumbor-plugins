@@ -43,7 +43,8 @@ setup(
             'coverage',
             'mock',
             'colorama',
-            'pillow',
+            # https://github.com/python-pillow/Pillow/issues/2609
+            'pillow<4.2.0',
             'nose'
         ]
     }
