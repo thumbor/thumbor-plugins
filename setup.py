@@ -39,6 +39,7 @@ setup(
     ],
     extras_require={
         'tests': [
+            'tornado==4.4',
             'tornado-pyvows>=0.6.0',
             'coverage',
             'mock',

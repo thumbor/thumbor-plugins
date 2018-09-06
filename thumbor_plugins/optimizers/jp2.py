@@ -30,4 +30,7 @@ class Optimizer(BaseOptimizer):
         return 'jp2' in self.context.request.filters
 
     def optimize(self, buffer, input_file, output_file):
-        return Image.open(input_file).save(output_file, 'JPEG2000', quality_mode='dB', quality_layers=[self.jp2_quality])
+        im = Image.open(input_file)
+        if 'P' in im.getbands():
+            im = im.convert('RGBA')
+        return im.save(output_file, 'JPEG2000', quality_mode='dB', quality_layers=[self.jp2_quality])

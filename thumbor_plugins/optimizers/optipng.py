@@ -23,7 +23,7 @@ class Optimizer(BaseOptimizer):
         self.optipng_path = self.context.config.OPTIPNG_PATH
         self.optipng_level = self.context.config.OPTIPNG_LEVEL
 
-        if not (os.path.isfile(self.optipng_path) and os.access(self.optipng_path, os.X_OK)):
+        if self.optipng_path is None or self.optipng_level is None or (not (os.path.isfile(self.optipng_path) and os.access(self.optipng_path, os.X_OK))):
             logger.error("ERROR optipng path '{0}' is not accessible".format(self.optipng_path))
             self.runnable = False
 
