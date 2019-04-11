@@ -80,6 +80,14 @@ class OptipngOptimizerTest(unittest.TestCase):
     def test_optipng_should_run_for_png(self):
         optimizer = OptipngOptimizer(self.get_context())
         self.assertTrue(optimizer.should_run('png', None))
+        
+    def test_optiping_should_fix_image(self):
+        optimizer = OptipngOptimizer(self.get_context())
+        temp = tempfile.NamedTemporaryFile()
+        optimizer.optimize(None, fixtures_folder + '/img/optipng-fix-needed.png', temp.name)
+        
+        self.assertLessEqual(os.path.getsize(fixtures_folder +'/img/optipng-fix-needed.png'),
+                             os.path.getsize(temp.name), "optipng did not fix the broken image")
 
     def test_optipng_should_optimize_png(self):
         optimizer = OptipngOptimizer(self.get_context())
