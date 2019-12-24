@@ -34,18 +34,19 @@ install:
     - make
     - sudo make install
 
+    # ATTENTION: imgmin install on ubuntu 16.04 isn't working.
     # install imgmin
-    - cd ~
-    - sudo apt-get install imagemagick libgraphicsmagick1-dev libmagickwand-dev perlmagick apache2-prefork-dev
-    - wget https://github.com/rflynn/imgmin/archive/v1.1.tar.gz
-    - tar xf v1.1.tar.gz
-    - cd imgmin-1.1
-    # because of https://github.com/rflynn/imgmin/issues/21
-    - cp $PROJECT_DIR/imgmin_apache2_makefile.am src/apache2/Makefile.am
-    - autoreconf -fi
-    - ./configure
-    - make
-    - sudo make install
+    # - cd ~
+    # - sudo apt-get install imagemagick libgraphicsmagick1-dev libmagickwand-dev perlmagick apache2-prefork-dev
+    # - wget https://github.com/rflynn/imgmin/archive/v1.1.tar.gz
+    # - tar xf v1.1.tar.gz
+    # - cd imgmin-1.1
+    # # because of https://github.com/rflynn/imgmin/issues/21
+    # - cp $PROJECT_DIR/imgmin_apache2_makefile.am src/apache2/Makefile.am
+    # - autoreconf -fi
+    # - ./configure
+    # - make
+    # - sudo make install
 
     # install aptitude packages
     - cd $PROJECT_DIR
