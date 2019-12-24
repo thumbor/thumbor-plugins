@@ -31,6 +31,12 @@ class Optimizer(BaseOptimizer):
 
     def optimize(self, buffer, input_file, output_file):
         im = Image.open(input_file)
-        if 'P' in im.getbands():
-            im = im.convert('RGBA')
+        if im.mode in ['1', 'P']:
+            if im.mode == '1':
+                target_mode = 'RGB'
+            else:
+                # convert() figures out RGB or RGBA based on palette used
+                target_mode = None
+            im = im.convert(mode=target_mode)
+
         return im.save(output_file, 'JPEG2000', quality_mode='dB', quality_layers=[self.jp2_quality])
