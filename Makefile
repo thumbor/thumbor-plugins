@@ -18,3 +18,7 @@ ci_test: compile_ext
 
 install:
 	@pip install install https://github.com/thumbor/thumbor-plugins/archive/master.zip
+
+test_gifv:
+	@docker build -t gifv -f thumbor_plugins/optimizers/gifv/tests/docker/Dockerfile .
+	docker run --rm -v$(CURDIR):/app gifv /bin/bash -c "pip install -e .[tests,gifv] && pytest"

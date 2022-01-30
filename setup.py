@@ -38,15 +38,11 @@ setup(
         'thumbor',
     ],
     extras_require={
+        'gifv': [
+            'webcolors==1.11.1',
+        ],
         'tests': [
-            'tornado==4.4',
-            'tornado-pyvows>=0.6.0',
-            'coverage',
-            'mock',
-            'colorama',
-            # https://github.com/python-pillow/Pillow/issues/2609
-            'pillow<4.2.0',
-            'nose'
+            "pytest>=6.2.5"
         ]
     }
 )
