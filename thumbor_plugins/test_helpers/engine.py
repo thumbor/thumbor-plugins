@@ -11,11 +11,9 @@ from thumbor.importer import Importer
 class EngineCase(AsyncHTTPTestCase):
     def get_app(self):
         cfg = Config(SECURITY_KEY="ACME-SEC")
-        server_params = ServerParameters(None, None, None, None, None, None)
+        server_params = ServerParameters(None, None, None, None, None, None, debug=True)
         server_params.gifsicle_path = which("gifsicle")
-        print('###############')
-        print(which("gifsicle"))
-        print('###############')
+
         cfg.DETECTORS = []
         cfg.STORAGE = "thumbor.storages.no_storage"
         cfg.LOADER = "thumbor.loaders.file_loader"

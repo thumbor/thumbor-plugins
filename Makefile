@@ -21,4 +21,11 @@ install:
 
 test_gifv:
 	@docker build -t gifv -f thumbor_plugins/optimizers/gifv/tests/docker/Dockerfile .
-	docker run --rm -v$(CURDIR):/app gifv /bin/bash -c "pip install -e .[tests,gifv] && pytest"
+	docker run --rm -v$(CURDIR):/app gifv /bin/bash -c "pip install -e .[tests,gifv] && pytest thumbor_plugins/optimizers/gifv/tests"
+
+test_mozjpeg:
+	@docker build -t mozjpeg -f thumbor_plugins/optimizers/mozjpeg/tests/docker/Dockerfile .
+	docker run --rm -v$(CURDIR):/app mozjpeg /bin/bash -c "pip install -e .[tests,mozjpeg] && pytest thumbor_plugins/optimizers/mozjpeg/tests"
+
+test_unit:
+	pytest -s `find . -type d -name 'unit' | tr "\n" " "`

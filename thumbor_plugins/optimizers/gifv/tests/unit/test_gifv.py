@@ -29,8 +29,7 @@ class GifvOptimizerTest(TestCase):
 
     def get_context(self):
         conf = Config()
-        conf.STATSD_HOST = ""
-        conf.FFMPEG_PATH = which("ffmpeg")
+        conf.FFMPEG_PATH = "/usr/bin/ffmpeg"
         ctx = Context(config=conf)
         ctx.request = RequestParameters()
         ctx.request.filters.append("gifv")
