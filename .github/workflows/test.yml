@@ -1,0 +1,22 @@
+name: Run tests
+
+on: [push, pull_request]
+
+jobs:
+  list_test_subjects:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(find . -type f -name 'Dockerfile' | awk -F\/ '{print $3"/"$4}' | jq -Rsc '. / "\n" - [""]')"
+  test:
+    name: ${{ matrix.subject }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        subject: ${{fromJSON(needs.list_test_subjects.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo ${{ matrix.subject }}
