@@ -34,15 +34,11 @@ setup(
     ],
     packages=['thumbor_plugins', 'thumbor_plugins.optimizers'],
     package_dir={"thumbor_plugins": "thumbor_plugins"},
-    install_requires=[
-        'thumbor',
-    ],
+    install_requires=[],
     extras_require={
-        'gifv': [
-            'webcolors==1.11.1',
-        ],
         'tests': [
-            "pytest>=6.2.5"
+            "pytest>=6.2.5",
+            'thumbor>=7.0,<8.0',
         ]
     }
 )

@@ -25,4 +25,4 @@ jobs:
       - id: run-tests
         run: |
           SUBJECT_NAME=$(echo "optimizers/gifv" | awk -F\/ '{print $2}')
-          docker run --rm -v$(pwd):/app test_image /bin/bash -c "pip install -e .[tests,${SUBJECT_NAME}] && pytest thumbor_plugins/${{ matrix.subject }}/tests"
+          docker run --rm -v$(pwd):/app test_image /bin/bash -c "pip install -e .[tests] && pip install -e thumbor_plugins/${{ matrix.subject }} && pytest thumbor_plugins/${{ matrix.subject }}/tests"
