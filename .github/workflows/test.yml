@@ -20,4 +20,9 @@ jobs:
         subject: ${{fromJSON(needs.list_test_subjects.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
-      - run: echo ${{ matrix.subject }}
+      - id: build-test-image
+        run: docker build -t test_image -f thumbor_plugins/${{ matrix.subject }}/tests/docker/Dockerfile .
+      - id: run-tests
+        run: |
+          SUBJECT_NAME=$(echo "optimizers/gifv" | awk -F\/ '{print $2}')
+          docker run --rm -v$(CURDIR):/app test_image /bin/bash -c "pip install -e .[tests,${SUBJECT_NAME}] && pytest thumbor_plugins/${{ matrix.subject }}/tests"
