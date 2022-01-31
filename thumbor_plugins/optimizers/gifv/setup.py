@@ -26,10 +26,8 @@ setup(
     ],
     packages=[
         'thumbor_plugins.optimizers.gifv',
-        'thumbor_plugins',
     ],
     package_dir= {
-        'thumbor_plugins': '../../..',
         'thumbor_plugins.optimizers.gifv': '.',
     },
     install_requires=[
