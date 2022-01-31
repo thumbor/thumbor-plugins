@@ -27,10 +27,9 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - id: prepare-build-environment
+      - name: Prepare build environment
         run: |
           pip install -U pip
           pip install -U build twine
-      - run: cd thumbor_plugins/${{ matrix.subject }}
-      - id: build-package
+      - name: Build package
         run: python -m build
