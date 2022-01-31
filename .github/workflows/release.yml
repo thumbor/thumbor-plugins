@@ -19,6 +19,9 @@ jobs:
     strategy:
       matrix:
         subject: ${{fromJSON(needs.list_packages.outputs.matrix)}}
+    defaults:
+      run:
+        working-directory: ./thumbor_plugins/${{ matrix.subject }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
