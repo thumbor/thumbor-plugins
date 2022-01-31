@@ -26,12 +26,17 @@ class MozJpegOptimizerTest(TestCase):
         self.os_access_patcher = mock.patch(
             "os.access"
         )
+        self.os_unlink_patcher = mock.patch(
+            "os.unlink"
+        )
         self.mock_os_path_isfile = self.os_path_isfile_patcher.start()
         self.mock_os_access = self.os_access_patcher.start()
+        self.mock_os_unlink = self.os_unlink_patcher.start()
 
     def tearDown(self):
         self.os_path_isfile_patcher.stop()
         self.mock_os_access.stop()
+        self.mock_os_unlink.stop()
 
     def get_context(self):
         conf = Config()
@@ -72,6 +77,7 @@ class MozJpegOptimizerTest(TestCase):
     def test_should_run_mozjpeg_binary(self, pil_image_mock, subprocess_call_mock):
         optimizer = Optimizer(self.get_context())
         optimizer.optimize(None, "input_file", "output_file")
+        self.mock_os_unlink.assert_called_once_with('output_file-intermediate')
         subprocess_call_mock.assert_called_with(
             '/usr/bin/mozjpeg -quality 75 -optimize output_file-intermediate > output_file',
             shell=True,
