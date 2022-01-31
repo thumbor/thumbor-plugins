@@ -30,6 +30,11 @@ jobs:
       - name: Prepare build environment
         run: |
           pip install -U pip
-          pip install -U build twine
+          pip install -U build
       - name: Build package
         run: python -m build
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
