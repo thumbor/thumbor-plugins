@@ -9,12 +9,11 @@
 # Copyright (c) 2011 globo.com timehome@corp.globo.com
 
 from setuptools import setup
-from thumbor_plugins import __version__
 
 
 setup(
     name='thumbor-plugins',
-    version=__version__,
+    version='0.3.0',
     keywords='imaging face detection feature thumbnail imagemagick pil opencv',
     author='globo.com',
     author_email='timehome@corp.globo.com',
@@ -29,7 +28,6 @@ setup(
         "Operating System :: MacOS",
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3 :: Only",
@@ -42,7 +40,7 @@ setup(
     extras_require={
         'tests': [
             "pytest>=6.2.5",
-            'thumbor>=7.0,<8.0',
+            'thumbor==7.*,>=7.0.6',
         ]
     }
 )
