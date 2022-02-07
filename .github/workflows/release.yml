@@ -60,14 +60,18 @@ jobs:
       - run: |
           echo "${{ steps.previous_tag.outputs }}"
           echo "${{ steps.previous_tag.outputs.previous-version }}"
-      - name: "Complex Configuration"
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v2.8.2
+      - uses: codfish/semantic-release-action@be6feadd39b5e45629542f3bc9403b7adcff9e3b
         with:
-          path: "."
-          fromTag: "${{ steps.previous_tag.outputs.previous-version }}"
-          # toTag: "0.5.0"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+          tag_format: 'v${version}'
+          additional_packages: |
+            ['semantic-release-commit-filter']
+          extends: 'semantic-release-commit-filter'
+          plugins: |
+            ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github']
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build package
         if: ${{ !steps.exist.outputs.result }}
         run: python -m build
