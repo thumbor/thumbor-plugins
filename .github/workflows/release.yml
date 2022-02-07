@@ -56,6 +56,7 @@ jobs:
           tag-prefix: "${{ env.PACKAGE_NAME }}-"
           default-version: '0.0.1'
           prerelease: 'alpha'
+          dry-run: true
       - run: |
           echo "${{ steps.previous_tag.outputs }}"
           echo "${{ steps.previous_tag.outputs.previous-version }}"
