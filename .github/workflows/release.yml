@@ -52,7 +52,7 @@ jobs:
         id: previous_tag
         uses: SOLIDSoftworks/semver-tags@1.0.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           tag-prefix: "${{ env.PACKAGE_NAME }}-"
           default-version: '0.0.1'
           prerelease: 'alpha'
@@ -60,6 +60,14 @@ jobs:
       - run: |
           echo "${{ steps.previous_tag.outputs }}"
           echo "${{ steps.previous_tag.outputs.previous-version }}"
+      - name: "Complex Configuration"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@{latest-release}
+        with:
+          path: "."
+          fromTag: "${{ steps.previous_tag.outputs.previous-version }}"
+          # toTag: "0.5.0"
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build package
         if: ${{ !steps.exist.outputs.result }}
         run: python -m build
