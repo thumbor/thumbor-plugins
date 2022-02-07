@@ -47,7 +47,8 @@ jobs:
         id: exist
         run: |
           set -o pipefail
-          echo "::set-output name=result::$(pip index versions $PACKAGE_NAME | grep $PACKAGE_VERSION | true; echo $?)"
+          set +e
+          echo "::set-output name=result::$(pip index versions $PACKAGE_NAME | grep -q $PACKAGE_VERSION; echo $?)"
       - name: Build package
         if: ${{ steps.exist.outputs.result }}
         run: python -m build
