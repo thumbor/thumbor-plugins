@@ -53,7 +53,7 @@ jobs:
         uses: SOLIDSoftworks/semver-tags@1.0.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          tag-prefix: "$PACKAGE_NAME-"
+          tag-prefix: "${{ env.PACKAGE_NAME }}-"
           default-version: '0.0.1'
           prerelease: 'alpha'
       - run: |
