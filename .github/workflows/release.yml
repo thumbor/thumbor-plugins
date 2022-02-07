@@ -4,7 +4,7 @@ name: Release packages
 on:
   workflow_run:
     workflows: ["Run tests"]
-    branches: [master]
+    # branches: [master]
     types:
       - completed
 
@@ -37,12 +37,19 @@ jobs:
         run: |
           pip install -U pip
           pip install -U build
+          echo "PACKAGE_NAME=$(python setup.py --name)" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$(python setup.py --version)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(python setup.py --fullname)" >> $GITHUB_ENV
+      - name: Check if version already exists
+        id: exist
+        run: echo "::set-output name=result::$(( pip index versions $PACKAGE_NAME | grep $PACKAGE_VERSION))"
       - name: Build package
+        if: ${{ steps.exist.outputs.result }}
         run: python -m build
       - name: Publish a Python distribution to PyPI
+        if: ${{ steps.exist.outputs.result }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: thumbor_plugins/${{ matrix.package }}/dist
-          skip_existing: true
