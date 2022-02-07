@@ -48,6 +48,17 @@ jobs:
         run: |
           set -o pipefail
           echo "::set-output name=result::$(pip index versions $PACKAGE_NAME | grep $PACKAGE_VERSION >> /dev/null; echo $?)"
+      - name: Get previous tag
+        id: previous_tag
+        uses: SOLIDSoftworks/semver-tags@1.0.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          tag-prefix: "$PACKAGE_NAME-"
+          default-version: '0.0.1'
+          prerelease: 'alpha'
+      - run: |
+          echo "${{ steps.previous_tag.output }}"
+          echo "${{ steps.previous_tag.output.previous-version }}"
       - name: Build package
         if: ${{ !steps.exist.outputs.result }}
         run: python -m build
