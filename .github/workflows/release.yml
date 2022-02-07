@@ -47,13 +47,12 @@ jobs:
         id: exist
         run: |
           set -o pipefail
-          set +e
-          echo "::set-output name=result::$(pip index versions $PACKAGE_NAME | grep -q $PACKAGE_VERSION; echo $?)"
+          echo "::set-output name=result::$(pip index versions $PACKAGE_NAME | grep $PACKAGE_VERSION >> /dev/null; echo $?)"
       - name: Build package
-        if: ${{ steps.exist.outputs.result }}
+        if: ${{ !steps.exist.outputs.result }}
         run: python -m build
       - name: Publish a Python distribution to PyPI
-        if: ${{ steps.exist.outputs.result }}
+        if: ${{ !steps.exist.outputs.result }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
