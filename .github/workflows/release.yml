@@ -2,11 +2,14 @@
 name: Release packages
 
 on:
-  workflow_run:
-    workflows: ["Run tests"]
-    # branches: [master]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["Run tests"]
+  #   branches: [master]
+  #   types:
+  #     - completed
+  push:
+  pull_request:
+    types: [opened, reopened]
 
 jobs:
   list_packages:
@@ -21,7 +24,7 @@ jobs:
     name: ${{ matrix.package }}
     runs-on: ubuntu-latest
     needs: list_packages
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
         package: ${{fromJSON(needs.list_packages.outputs.matrix)}}
