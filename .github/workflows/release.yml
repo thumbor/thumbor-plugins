@@ -60,15 +60,27 @@ jobs:
       - run: |
           echo "${{ steps.previous_tag.outputs }}"
           echo "${{ steps.previous_tag.outputs.previous-version }}"
-      - uses: codfish/semantic-release-action@be6feadd39b5e45629542f3bc9403b7adcff9e3b
+      # - uses: codfish/semantic-release-action@be6feadd39b5e45629542f3bc9403b7adcff9e3b
+      #   with:
+      #     dry_run: true
+      #     tag_format: 'v${version}'
+      #     additional_packages: |
+      #       ['semantic-release-commit-filter']
+      #     extends: 'semantic-release-commit-filter'
+      #     plugins: |
+      #       ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github']
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2.7.0
         with:
-          dry_run: true
-          tag_format: 'v${version}'
-          additional_packages: |
-            ['semantic-release-commit-filter']
-          extends: 'semantic-release-commit-filter'
-          plugins: |
-            ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github']
+          # You can specify specifying version range for the extra plugins if you prefer.
+          extra_plugins: |
+            @semantic-release/changelog@3.0.0
+            @semantic-release/git
+            semantic-release-commit-filter
+          extends: |
+            'semantic-release-commit-filter'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
