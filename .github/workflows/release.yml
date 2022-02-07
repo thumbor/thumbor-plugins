@@ -45,7 +45,9 @@ jobs:
           echo "TAG_NAME=$(python setup.py --fullname)" >> $GITHUB_ENV
       - name: Check if version already exists
         id: exist
-        run: echo "::set-output name=result::$(( pip index versions $PACKAGE_NAME | grep $PACKAGE_VERSION))"
+        run: |
+          set -o pipefail
+          echo "::set-output name=result::$(pip index versions $PACKAGE_NAME | grep $PACKAGE_VERSION | true; echo $?)"
       - name: Build package
         if: ${{ steps.exist.outputs.result }}
         run: python -m build
