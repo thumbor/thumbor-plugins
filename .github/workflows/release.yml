@@ -57,8 +57,8 @@ jobs:
           default-version: '0.0.1'
           prerelease: 'alpha'
       - run: |
-          echo "${{ steps.previous_tag.output }}"
-          echo "${{ steps.previous_tag.output.previous-version }}"
+          echo "${{ steps.previous_tag.outputs }}"
+          echo "${{ steps.previous_tag.outputs.previous-version }}"
       - name: Build package
         if: ${{ !steps.exist.outputs.result }}
         run: python -m build
