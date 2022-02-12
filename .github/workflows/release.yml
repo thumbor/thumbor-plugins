@@ -83,7 +83,8 @@ jobs:
             @semantic-release/git
             semantic-release-commit-filter
           extends: |
-            'semantic-release-commit-filter'
+            semantic-release-commit-filter
+          working_directory: ./thumbor_plugins/${{ matrix.package }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
