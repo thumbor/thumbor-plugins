@@ -80,7 +80,6 @@ jobs:
               '.*',
             ]
           extra_plugins: |
-            @semantic-release/changelog@3.0.0
             @semantic-release/git
             semantic-release-commit-filter
           extends: |
