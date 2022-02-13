@@ -27,4 +27,4 @@ jobs:
         run: docker build -t test_image -f thumbor_plugins/${{ matrix.subject }}/tests/docker/Dockerfile .
       - id: run-tests
         run: |
-          docker run --rm -v$(pwd):/app test_image /bin/bash -c "pip install -e .[tests] && pip install -e thumbor_plugins/${{ matrix.subject }} && pytest thumbor_plugins/${{ matrix.subject }}/tests"
+          docker run --rm -v$(pwd):/app test_image /bin/bash -c "pip install r test_requirements.txt && pip install -e thumbor_plugins/${{ matrix.subject }} && pytest thumbor_plugins/${{ matrix.subject }}/tests"
