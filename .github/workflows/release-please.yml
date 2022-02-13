@@ -29,7 +29,7 @@ jobs:
           monorepo-tags: true
           release-type: python
           command: github-release
-          path: thumbor_plugins/${{ matrix.subject }}
+          path: /thumbor_plugins/${{ matrix.subject }}
           package-name: ${{ env.PACKAGE_NAME }}
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.release_created }}
