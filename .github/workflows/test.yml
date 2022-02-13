@@ -27,4 +27,22 @@ jobs:
         run: docker build -t test_image -f thumbor_plugins/${{ matrix.subject }}/tests/docker/Dockerfile .
       - id: run-tests
         run: |
-          docker run --rm -v$(pwd):/app test_image /bin/bash -c "pip install -r test_requirements.txt && pip install -e thumbor_plugins/${{ matrix.subject }} && pytest thumbor_plugins/${{ matrix.subject }}/tests"
+          MODULE_PATH=${{ matrix.subject }}
+          MODULE="thumbor_plugins.${MODULE_PATH////.}"
+          docker run --rm -v$(pwd):/app test_image /bin/bash -c "pip install -r test_requirements.txt && pip install -e thumbor_plugins/${{ matrix.subject }} && pytest --cov=$MODULE thumbor_plugins/${{ matrix.subject }}/tests && coverage lcov"
+      - name: Coveralls
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage.lcov
+          flag-name: run-${{ matrix.subject }}
+          parallel: true
+  finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@1.1.3
+      with:
+        github-token: ${{ secrets.github_token }}
+        parallel-finished: true
