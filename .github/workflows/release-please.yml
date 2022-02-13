@@ -11,3 +11,4 @@ jobs:
         with:
           monorepo-tags: true
           release-type: python
+          command: manifest
