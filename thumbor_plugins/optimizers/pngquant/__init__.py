@@ -11,6 +11,8 @@
 import os
 import subprocess
 
+import thumbor_plugins.optimizers.pngquant.config # noqa
+
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
 

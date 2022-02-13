@@ -12,4 +12,5 @@ class MozJPEGTest(EngineCase):
 
     @gen_test
     async def test_mozjpeg(self):
-        await self.http_client.fetch(self.get_url("/unsafe/gradient.jpg"))
+        result = await self.http_client.fetch(self.get_url("/unsafe/gradient.jpg"))
+        self.assert_result_smaller_than_original(result, "gradient.jpg")

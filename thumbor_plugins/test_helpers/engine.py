@@ -1,3 +1,5 @@
+import os.path
+
 from shutil import which
 
 from tornado.testing import AsyncHTTPTestCase
@@ -34,3 +36,11 @@ class EngineCase(AsyncHTTPTestCase):
         application = ThumborServiceApp(ctx)
 
         return application
+
+    def assert_result_smaller_than_original(self, request, original_image):
+        original_image_size = os.path.getsize(
+            os.path.join(self.fixtures_path, original_image)
+        )
+        self.assertLess(
+            int(request.headers['Content-Length']), original_image_size
+        )

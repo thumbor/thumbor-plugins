@@ -15,10 +15,10 @@ from thumbor.config import Config
 from thumbor.context import Context, RequestParameters
 from thumbor.utils import EXTENSION
 
-from thumbor_plugins.optimizers.mozjpeg import Optimizer
+from thumbor_plugins.optimizers.pngquant import Optimizer
 
 
-class MozJpegOptimizerTest(TestCase):
+class PNGQuantOptimizerTest(TestCase):
     def setUp(self):
         self.os_path_isfile_patcher = mock.patch(
             "os.path.isfile"
@@ -26,21 +26,18 @@ class MozJpegOptimizerTest(TestCase):
         self.os_access_patcher = mock.patch(
             "os.access"
         )
-        self.os_unlink_patcher = mock.patch(
-            "os.unlink"
-        )
         self.mock_os_path_isfile = self.os_path_isfile_patcher.start()
         self.mock_os_access = self.os_access_patcher.start()
-        self.mock_os_unlink = self.os_unlink_patcher.start()
 
     def tearDown(self):
         self.os_path_isfile_patcher.stop()
         self.mock_os_access.stop()
-        self.mock_os_unlink.stop()
 
     def get_context(self):
         conf = Config()
-        conf.MOZJPEG_PATH = "/usr/bin/mozjpeg"
+        conf.PNGQUANT_PATH = "/usr/bin/pngquant"
+        conf.PNGQUANT_QUALITY = "65-80"
+        conf.PNGQUANT_SPEED = "1"
         ctx = Context(config=conf)
         ctx.request = RequestParameters()
 
@@ -49,33 +46,27 @@ class MozJpegOptimizerTest(TestCase):
     def test_should_not_run_if_binary_missing(self):
         self.mock_os_path_isfile.return_value = False
         optimizer = Optimizer(self.get_context())
-        self.assertFalse(optimizer.should_run(".jpeg", ""))
+        self.assertFalse(optimizer.should_run(".png", ""))
 
     def test_should_not_run_if_binary_not_executable(self):
         self.mock_os_access.return_value = False
         optimizer = Optimizer(self.get_context())
-        self.assertFalse(optimizer.should_run(".jpeg", ""))
-
-    def test_should_run_only_for_jpg(self):
-        optimizer = Optimizer(self.get_context())
         self.assertFalse(optimizer.should_run(".png", ""))
 
-    def test_should_run_for_jpg(self):
+    def test_should_run_only_for_png(self):
         optimizer = Optimizer(self.get_context())
-        self.assertTrue(optimizer.should_run(".jpg", ""))
+        self.assertFalse(optimizer.should_run(".jpg", ""))
 
-    def test_should_run_for_jpeg(self):
+    def test_should_run_for_png(self):
         optimizer = Optimizer(self.get_context())
-        self.assertTrue(optimizer.should_run(".jpeg", ""))
+        self.assertTrue(optimizer.should_run(".png", ""))
 
     @mock.patch('subprocess.call')
     @mock.patch('PIL.Image.open')
     def test_should_run_mozjpeg_binary(self, pil_image_mock, subprocess_call_mock):
         optimizer = Optimizer(self.get_context())
         optimizer.optimize(None, "input_file", "output_file")
-        self.mock_os_unlink.assert_called_once_with('output_file-intermediate')
         subprocess_call_mock.assert_called_with(
-            '/usr/bin/mozjpeg -quality 75 -optimize output_file-intermediate > output_file',
-            shell=True,
+            'cat input_file | /usr/bin/pngquant --speed 1 --quality=65-80 - > output_file', shell=True,
             stdin=mock.ANY,
         )
