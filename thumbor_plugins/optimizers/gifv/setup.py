@@ -4,6 +4,7 @@
 from setuptools import setup
 
 
+
 setup(
     name="thumbor-plugins-gifv",
     version="0.0.1",
