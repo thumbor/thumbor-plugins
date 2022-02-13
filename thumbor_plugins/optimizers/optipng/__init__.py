@@ -11,6 +11,8 @@
 import os
 import subprocess
 
+import thumbor_plugins.optimizers.optipng.config # noqa
+
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
 
@@ -23,7 +25,7 @@ class Optimizer(BaseOptimizer):
         self.optipng_path = self.context.config.OPTIPNG_PATH
         self.optipng_level = self.context.config.OPTIPNG_LEVEL
 
-        if self.optipng_path is None or self.optipng_level is None or (not (os.path.isfile(self.optipng_path) and os.access(self.optipng_path, os.X_OK))):
+        if not (os.path.isfile(self.optipng_path) and os.access(self.optipng_path, os.X_OK)):
             logger.error("ERROR optipng path '{0}' is not accessible".format(self.optipng_path))
             self.runnable = False
 
@@ -31,7 +33,7 @@ class Optimizer(BaseOptimizer):
         return 'png' in image_extension and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s -quiet -fix -preserve -force -keep -o%d -out %s -- %s ' % (
+        command = '%s -quiet -fix -preserve -force -keep -o%d -out %s -- %s' % (
             self.optipng_path,
             self.optipng_level,
             output_file,
