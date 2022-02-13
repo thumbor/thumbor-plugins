@@ -4,11 +4,10 @@ from tornado.testing import gen_test
 
 from thumbor_plugins.test_helpers.engine import EngineCase
 
+
 class Jp2Test(EngineCase):
     optimizer = "thumbor_plugins.optimizers.jp2"
-    fixtures_path = os.path.join(
-        os.path.dirname(__file__), "imgs"
-    )
+    fixtures_path = os.path.join(os.path.dirname(__file__), "imgs")
 
     @gen_test
     async def test_jp2(self):

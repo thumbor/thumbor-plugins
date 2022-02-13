@@ -20,12 +20,8 @@ from thumbor_plugins.optimizers.pngquant import Optimizer
 
 class PNGQuantOptimizerTest(TestCase):
     def setUp(self):
-        self.os_path_isfile_patcher = mock.patch(
-            "os.path.isfile"
-        )
-        self.os_access_patcher = mock.patch(
-            "os.access"
-        )
+        self.os_path_isfile_patcher = mock.patch("os.path.isfile")
+        self.os_access_patcher = mock.patch("os.access")
         self.mock_os_path_isfile = self.os_path_isfile_patcher.start()
         self.mock_os_access = self.os_access_patcher.start()
 
@@ -61,12 +57,13 @@ class PNGQuantOptimizerTest(TestCase):
         optimizer = Optimizer(self.get_context())
         self.assertTrue(optimizer.should_run(".png", ""))
 
-    @mock.patch('subprocess.call')
-    @mock.patch('PIL.Image.open')
+    @mock.patch("subprocess.call")
+    @mock.patch("PIL.Image.open")
     def test_should_run_mozjpeg_binary(self, pil_image_mock, subprocess_call_mock):
         optimizer = Optimizer(self.get_context())
         optimizer.optimize(None, "input_file", "output_file")
         subprocess_call_mock.assert_called_with(
-            'cat input_file | /usr/bin/pngquant --speed 1 --quality=65-80 - > output_file', shell=True,
+            "cat input_file | /usr/bin/pngquant --speed 1 --quality=65-80 - > output_file",
+            shell=True,
             stdin=mock.ANY,
         )

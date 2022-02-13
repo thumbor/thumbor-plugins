@@ -5,14 +5,14 @@ from setuptools import setup
 
 
 setup(
-    name='thumbor-plugins-jpegrecompress',
-    version='0.0.1',
-    keywords='thumbor optimizers jpegrecompress',
-    author='Guilherme Souza',
-    author_email='guilherme@souza.tech',
-    url='https://thumbor.readthedocs.io/en/latest/index.html',
-    license='MIT',
-    description='Thumbor optimizer to run jpegrecompress',
+    name="thumbor-plugins-jpegrecompress",
+    version="0.0.1",
+    keywords="thumbor optimizers jpegrecompress",
+    author="Guilherme Souza",
+    author_email="guilherme@souza.tech",
+    url="https://thumbor.readthedocs.io/en/latest/index.html",
+    license="MIT",
+    description="Thumbor optimizer to run jpegrecompress",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -28,9 +28,9 @@ setup(
         "Topic :: Multimedia :: Graphics :: Presentation",
     ],
     packages=[
-        'thumbor_plugins.optimizers.jpegrecompress',
+        "thumbor_plugins.optimizers.jpegrecompress",
     ],
-    package_dir= {
-        'thumbor_plugins.optimizers.jpegrecompress': '.',
+    package_dir={
+        "thumbor_plugins.optimizers.jpegrecompress": ".",
     },
 )

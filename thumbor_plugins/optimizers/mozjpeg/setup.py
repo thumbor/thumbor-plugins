@@ -5,14 +5,14 @@ from setuptools import setup
 
 
 setup(
-    name='thumbor-plugins-mozjpeg',
-    version='0.0.1',
-    keywords='thumbor optimizers mozjpeg',
-    author='Guilherme Souza',
-    author_email='guilherme@souza.tech',
-    url='https://thumbor.readthedocs.io/en/latest/index.html',
-    license='MIT',
-    description='Thumbor optimizer to run mozjpeg',
+    name="thumbor-plugins-mozjpeg",
+    version="0.0.1",
+    keywords="thumbor optimizers mozjpeg",
+    author="Guilherme Souza",
+    author_email="guilherme@souza.tech",
+    url="https://thumbor.readthedocs.io/en/latest/index.html",
+    license="MIT",
+    description="Thumbor optimizer to run mozjpeg",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -28,9 +28,9 @@ setup(
         "Topic :: Multimedia :: Graphics :: Presentation",
     ],
     packages=[
-        'thumbor_plugins.optimizers.mozjpeg',
+        "thumbor_plugins.optimizers.mozjpeg",
     ],
-    package_dir= {
-        'thumbor_plugins.optimizers.mozjpeg': '.',
+    package_dir={
+        "thumbor_plugins.optimizers.mozjpeg": ".",
     },
 )

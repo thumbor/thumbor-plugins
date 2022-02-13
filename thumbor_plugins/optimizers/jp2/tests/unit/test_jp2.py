@@ -24,11 +24,11 @@ class Jp2OptimizerTest(TestCase):
         conf.JP2_QUALITY = "80"
         ctx = Context(config=conf)
         ctx.request = RequestParameters()
-        ctx.request.filters.append('jp2')
+        ctx.request.filters.append("jp2")
 
         return ctx
 
-    @mock.patch('thumbor_plugins.optimizers.jp2.Image')
+    @mock.patch("thumbor_plugins.optimizers.jp2.Image")
     def test_should_convert_image_as_rgb(self, pil_image_mock):
         image_opened_mock = mock.Mock()
         image_converted_mock = mock.Mock()
@@ -42,8 +42,5 @@ class Jp2OptimizerTest(TestCase):
 
         image_opened_mock.convert.assert_called_with(mode="RGB")
         image_converted_mock.save.assert_called_with(
-            'output_file',
-            'JPEG2000',
-            quality_mode='dB',
-            quality_layers=[80]
+            "output_file", "JPEG2000", quality_mode="dB", quality_layers=[80]
         )

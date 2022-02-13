@@ -12,14 +12,14 @@ from setuptools import setup
 
 
 setup(
-    name='thumbor-plugins',
-    version='0.3.0',
-    keywords='imaging face detection feature thumbnail imagemagick pil opencv',
-    author='globo.com',
-    author_email='timehome@corp.globo.com',
-    url='https://github.com/globocom/thumbor/wiki',
-    license='MIT',
-    description='Optimizers and filters contributed by the Thumbor community',
+    name="thumbor-plugins",
+    version="0.3.0",
+    keywords="imaging face detection feature thumbnail imagemagick pil opencv",
+    author="globo.com",
+    author_email="timehome@corp.globo.com",
+    url="https://github.com/globocom/thumbor/wiki",
+    license="MIT",
+    description="Optimizers and filters contributed by the Thumbor community",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -34,13 +34,13 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
         "Topic :: Multimedia :: Graphics :: Presentation",
     ],
-    packages=['thumbor_plugins', 'thumbor_plugins.optimizers'],
+    packages=["thumbor_plugins", "thumbor_plugins.optimizers"],
     package_dir={"thumbor_plugins": "thumbor_plugins"},
     install_requires=[],
     extras_require={
-        'tests': [
+        "tests": [
             "pytest>=6.2.5",
-            'thumbor==7.*,>=7.0.6',
+            "thumbor==7.*,>=7.0.6",
         ]
-    }
+    },
 )

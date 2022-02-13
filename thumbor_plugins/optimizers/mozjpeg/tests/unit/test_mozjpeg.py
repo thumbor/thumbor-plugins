@@ -20,15 +20,9 @@ from thumbor_plugins.optimizers.mozjpeg import Optimizer
 
 class MozJpegOptimizerTest(TestCase):
     def setUp(self):
-        self.os_path_isfile_patcher = mock.patch(
-            "os.path.isfile"
-        )
-        self.os_access_patcher = mock.patch(
-            "os.access"
-        )
-        self.os_unlink_patcher = mock.patch(
-            "os.unlink"
-        )
+        self.os_path_isfile_patcher = mock.patch("os.path.isfile")
+        self.os_access_patcher = mock.patch("os.access")
+        self.os_unlink_patcher = mock.patch("os.unlink")
         self.mock_os_path_isfile = self.os_path_isfile_patcher.start()
         self.mock_os_access = self.os_access_patcher.start()
         self.mock_os_unlink = self.os_unlink_patcher.start()
@@ -68,14 +62,14 @@ class MozJpegOptimizerTest(TestCase):
         optimizer = Optimizer(self.get_context())
         self.assertTrue(optimizer.should_run(".jpeg", ""))
 
-    @mock.patch('subprocess.call')
-    @mock.patch('PIL.Image.open')
+    @mock.patch("subprocess.call")
+    @mock.patch("PIL.Image.open")
     def test_should_run_mozjpeg_binary(self, pil_image_mock, subprocess_call_mock):
         optimizer = Optimizer(self.get_context())
         optimizer.optimize(None, "input_file", "output_file")
-        self.mock_os_unlink.assert_called_once_with('output_file-intermediate')
+        self.mock_os_unlink.assert_called_once_with("output_file-intermediate")
         subprocess_call_mock.assert_called_with(
-            '/usr/bin/mozjpeg -quality 75 -optimize output_file-intermediate > output_file',
+            "/usr/bin/mozjpeg -quality 75 -optimize output_file-intermediate > output_file",
             shell=True,
             stdin=mock.ANY,
         )

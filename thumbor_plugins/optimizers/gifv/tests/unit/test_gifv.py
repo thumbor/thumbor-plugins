@@ -61,18 +61,12 @@ class GifvOptimizerTest(TestCase):
         self.assertEqual(
             optimizer.normalize_color_to_hex("#ff00ff"), magenta_unicode_hex
         )
-        self.assertEqual(
-            optimizer.normalize_color_to_hex("f0f"), magenta_unicode_hex
-        )
-        self.assertEqual(
-            optimizer.normalize_color_to_hex("#f0f"), magenta_unicode_hex
-        )
+        self.assertEqual(optimizer.normalize_color_to_hex("f0f"), magenta_unicode_hex)
+        self.assertEqual(optimizer.normalize_color_to_hex("#f0f"), magenta_unicode_hex)
         self.assertEqual(
             optimizer.normalize_color_to_hex("magenta"), magenta_unicode_hex
         )
 
     def test_should_not_parse_background_color_with_invalid_value(self):
         optimizer = Optimizer(self.get_context())
-        self.assertEqual(
-            optimizer.normalize_color_to_hex("asdfasdfasfd"), None
-        )
+        self.assertEqual(optimizer.normalize_color_to_hex("asdfasdfasfd"), None)

@@ -11,7 +11,7 @@
 import os
 import subprocess
 
-import thumbor_plugins.optimizers.mozjpeg.config # noqa
+import thumbor_plugins.optimizers.mozjpeg.config  # noqa
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
@@ -24,18 +24,22 @@ class Optimizer(BaseOptimizer):
 
         self.runnable = True
         self.mozjpeg_path = self.context.config.MOZJPEG_PATH
-        self.mozjpeg_level = self.context.config.MOZJPEG_QUALITY or '75'
-        if not (os.path.isfile(self.mozjpeg_path) and os.access(self.mozjpeg_path, os.X_OK)):
-            logger.error("ERROR mozjpeg path '{0}' is not accessible".format(self.mozjpeg_path))
+        self.mozjpeg_level = self.context.config.MOZJPEG_QUALITY or "75"
+        if not (
+            os.path.isfile(self.mozjpeg_path) and os.access(self.mozjpeg_path, os.X_OK)
+        ):
+            logger.error(
+                "ERROR mozjpeg path '{0}' is not accessible".format(self.mozjpeg_path)
+            )
             self.runnable = False
 
     def should_run(self, image_extension, buffer):
-        return ('jpg' in image_extension or 'jpeg' in image_extension) and self.runnable
+        return ("jpg" in image_extension or "jpeg" in image_extension) and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        intermediary = output_file + '-intermediate'
-        Image.open(input_file).save(intermediary, 'tga')
-        command = '%s -quality %s -optimize %s > %s' % (
+        intermediary = output_file + "-intermediate"
+        Image.open(input_file).save(intermediary, "tga")
+        command = "%s -quality %s -optimize %s > %s" % (
             self.mozjpeg_path,
             self.mozjpeg_level,
             intermediary,

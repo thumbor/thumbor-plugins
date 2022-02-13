@@ -11,7 +11,7 @@
 import os
 import subprocess
 
-import thumbor_plugins.optimizers.pngcrush.config # noqa
+import thumbor_plugins.optimizers.pngcrush.config  # noqa
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
@@ -23,15 +23,20 @@ class Optimizer(BaseOptimizer):
 
         self.runnable = True
         self.pngcrush_path = self.context.config.PNGCRUSH_PATH
-        if not (os.path.isfile(self.pngcrush_path) and os.access(self.pngcrush_path, os.X_OK)):
-            logger.error("ERROR pngcrush path '{0}' is not accessible".format(self.pngcrush_path))
+        if not (
+            os.path.isfile(self.pngcrush_path)
+            and os.access(self.pngcrush_path, os.X_OK)
+        ):
+            logger.error(
+                "ERROR pngcrush path '{0}' is not accessible".format(self.pngcrush_path)
+            )
             self.runnable = False
 
     def should_run(self, image_extension, buffer):
-        return 'png' in image_extension and self.runnable
+        return "png" in image_extension and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s -reduce -q %s %s' % (
+        command = "%s -reduce -q %s %s" % (
             self.pngcrush_path,
             input_file,
             output_file,

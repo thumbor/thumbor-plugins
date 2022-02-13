@@ -11,7 +11,7 @@
 import os
 import subprocess
 
-import thumbor_plugins.optimizers.pngquant.config # noqa
+import thumbor_plugins.optimizers.pngquant.config  # noqa
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
@@ -23,18 +23,23 @@ class Optimizer(BaseOptimizer):
 
         self.runnable = True
         self.pngquant_path = self.context.config.PNGQUANT_PATH
-        self.pngquant_quality = self.context.config.PNGQUANT_QUALITY or '65-80'
-        self.pngquant_speed = self.context.config.PNGQUANT_SPEED or '3'
+        self.pngquant_quality = self.context.config.PNGQUANT_QUALITY or "65-80"
+        self.pngquant_speed = self.context.config.PNGQUANT_SPEED or "3"
 
-        if not (os.path.isfile(self.pngquant_path) and os.access(self.pngquant_path, os.X_OK)):
-            logger.error("ERROR pnqquant path '{0}' is not accessible".format(self.pngquant_path))
+        if not (
+            os.path.isfile(self.pngquant_path)
+            and os.access(self.pngquant_path, os.X_OK)
+        ):
+            logger.error(
+                "ERROR pnqquant path '{0}' is not accessible".format(self.pngquant_path)
+            )
             self.runnable = False
 
     def should_run(self, image_extension, buffer):
-        return 'png' in image_extension and self.runnable
+        return "png" in image_extension and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = 'cat %s | %s --speed %s --quality=%s - > %s' % (
+        command = "cat %s | %s --speed %s --quality=%s - > %s" % (
             input_file,
             self.pngquant_path,
             self.pngquant_speed,

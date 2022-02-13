@@ -14,7 +14,7 @@ from os.path import exists
 
 import webcolors
 
-import thumbor_plugins.optimizers.gifv.config # noqa
+import thumbor_plugins.optimizers.gifv.config  # noqa
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
@@ -38,9 +38,7 @@ class Optimizer(BaseOptimizer):
         if "background_color" in self.context.request.filters:
             filters = self.context.request.filters.split(":")
             bg_filter = [
-                filter
-                for filter in filters
-                if filter.startswith("background_color")
+                filter for filter in filters if filter.startswith("background_color")
             ][0]
             bg_color = re.search(r"\((.*?)\)", bg_filter).group(1)
             bg_color_hex = self.normalize_color_to_hex(bg_color)

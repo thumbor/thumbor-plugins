@@ -20,7 +20,7 @@ class EngineCase(AsyncHTTPTestCase):
         cfg.STORAGE = "thumbor.storages.no_storage"
         cfg.LOADER = "thumbor.loaders.file_loader"
         cfg.FILE_LOADER_ROOT_PATH = getattr(self, "fixtures_path", None)
-        cfg.ENGINE = 'thumbor.engines.pil'
+        cfg.ENGINE = "thumbor.engines.pil"
         cfg.USE_GIFSICLE_ENGINE = True
         cfg.FFMPEG_PATH = which("ffmpeg")
         cfg.ENGINE_THREADPOOL_SIZE = 10
@@ -41,6 +41,4 @@ class EngineCase(AsyncHTTPTestCase):
         original_image_size = os.path.getsize(
             os.path.join(self.fixtures_path, original_image)
         )
-        self.assertLess(
-            int(request.headers['Content-Length']), original_image_size
-        )
+        self.assertLess(int(request.headers["Content-Length"]), original_image_size)
