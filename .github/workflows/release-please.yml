@@ -26,3 +26,4 @@ jobs:
           release-type: python
           command: github-release
           path: thumbor_plugins/${{ matrix.subject }}
+          package-name: ${{ matrix.subject }}
