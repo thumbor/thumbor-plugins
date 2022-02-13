@@ -4,6 +4,7 @@
 from setuptools import setup
 
 
+
 setup(
     name="thumbor-plugins-mozjpeg",
     version="0.1.0",
