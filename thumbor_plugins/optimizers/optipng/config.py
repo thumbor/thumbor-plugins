@@ -2,8 +2,7 @@ from thumbor.config import Config
 
 Config.define(
     'OPTIPNG_PATH',
-    '/usr/local/bin/optipng',
-    # '/usr/bin/optipng',
+    '/usr/bin/optipng',
     'Path for the optipng binary',
     'Optimizers'
 )
