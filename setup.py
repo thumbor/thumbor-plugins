@@ -13,7 +13,7 @@ from setuptools import setup
 
 setup(
     name="thumbor-plugins",
-    version="0.3.0",
+    version="0.1.0",
     keywords="imaging face detection feature thumbnail imagemagick pil opencv",
     author="globo.com",
     author_email="timehome@corp.globo.com",
