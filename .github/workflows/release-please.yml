@@ -19,13 +19,10 @@ jobs:
     strategy:
       matrix:
         subject: ${{fromJSON(needs.list_modules.outputs.matrix)}}
-    defaults:
-      run:
-        working-directory: ./thumbor_plugins/${{ matrix.subject }}
     steps:
       - name: Set environment
         run: |
-          echo "PACKAGE_NAME=$( echo ${{ matrix.subject }} | awk -F\/ '{print "thumbor-plugins-"$2}')" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=$( echo "${{ matrix.subject }}" | awk -F\/ '{print "thumbor-plugins-"$2}' )" >> $GITHUB_ENV
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
@@ -42,6 +39,7 @@ jobs:
           python-version: '3.x'
       - name: Build package
         if: ${{ steps.release.outputs.release_created }}
+        working-directory: ./thumbor_plugins/${{ matrix.subject }}
         run: python -m build
       - name: Publish a Python distribution to PyPI
         if: ${{ steps.release.outputs.release_created }}
