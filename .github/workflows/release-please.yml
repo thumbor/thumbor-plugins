@@ -30,6 +30,7 @@ jobs:
           release-type: python
           path: /thumbor_plugins/${{ matrix.subject }}
           package-name: ${{ env.PACKAGE_NAME }}
+          command: manifest
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.release_created }}
       - uses: actions/setup-python@v2
