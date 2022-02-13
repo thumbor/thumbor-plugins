@@ -1,3 +1,4 @@
 {
-  "thumbor_plugins/optimizers/gifv": "0.1.0"
+  "thumbor_plugins/optimizers/gifv": "0.1.0",
+  "thumbor_plugins/optimizers/mozjpeg": "0.1.0"
 }
