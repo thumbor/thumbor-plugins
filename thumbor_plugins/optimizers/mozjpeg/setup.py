@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name="thumbor-plugins-mozjpeg",
-    version="0.0.1",
+    version="0.1.0",
     keywords="thumbor optimizers mozjpeg",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",

@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name="thumbor-plugins-jp2",
-    version="0.0.1",
+    version="0.1.0",
     keywords="thumbor optimizers jp2",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
