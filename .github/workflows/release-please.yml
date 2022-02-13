@@ -20,10 +20,13 @@ jobs:
       matrix:
         subject: ${{fromJSON(needs.list_modules.outputs.matrix)}}
     steps:
+      - name: Set environment
+        run: |
+          echo "PACKAGE_NAME=$( echo ${{ matrix.subject }} | awk -F\/ '{print "thumbor-plugins-"$2}')" >> $GITHUB_ENV
       - uses: google-github-actions/release-please-action@v3
         with:
           monorepo-tags: true
           release-type: python
           command: github-release
           path: thumbor_plugins/${{ matrix.subject }}
-          package-name: ${{ matrix.subject }}
+          package-name: ${{ env.PACKAGE_NAME }}
