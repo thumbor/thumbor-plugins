@@ -11,6 +11,8 @@
 import os
 import subprocess
 
+import thumbor_plugins.optimizers.pngcrush.config # noqa
+
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
 
@@ -29,7 +31,7 @@ class Optimizer(BaseOptimizer):
         return 'png' in image_extension and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = '%s -reduce -q %s %s ' % (
+        command = '%s -reduce -q %s %s' % (
             self.pngcrush_path,
             input_file,
             output_file,
