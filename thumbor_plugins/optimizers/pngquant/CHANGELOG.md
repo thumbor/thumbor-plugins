@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.1](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngquant-v0.1.0...thumbor-plugins-pngquant-v0.1.1) (2022-02-13)
+
+
+### Bug Fixes
+
+* trigger release ([#50](https://github.com/thumbor/thumbor-plugins/issues/50)) ([a76f637](https://github.com/thumbor/thumbor-plugins/commit/a76f637ff14c326cb0d7987948a974ba807e83ff))
+
 ## 0.1.0 (2022-02-13)
 
 
