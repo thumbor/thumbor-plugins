@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.2](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-jpegrecompress-v0.1.1...thumbor-plugins-jpegrecompress-v0.1.2) (2022-02-14)
+
+
+### Bug Fixes
+
+* Add long_description to jpegrecompress ([8be2974](https://github.com/thumbor/thumbor-plugins/commit/8be297446e580ee37ea4e270fc1a80185eff169a))
+
 ### [0.1.1](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-jpegrecompress-v0.1.0...thumbor-plugins-jpegrecompress-v0.1.1) (2022-02-13)
 
 

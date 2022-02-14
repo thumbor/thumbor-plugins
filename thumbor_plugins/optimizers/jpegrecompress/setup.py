@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name="thumbor-plugins-jpegrecompress",
-    version="0.1.1",
+    version="0.1.2",
     keywords="thumbor optimizers jpegrecompress",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
