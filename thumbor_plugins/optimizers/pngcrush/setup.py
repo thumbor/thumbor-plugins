@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name="thumbor-plugins-pngcrush",
-    version="0.1.1",
+    version="0.1.2",
     keywords="thumbor optimizers pngcrush",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
