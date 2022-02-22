@@ -11,9 +11,18 @@ setup(
     keywords="thumbor optimizers pngquant",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
-    url="https://thumbor.readthedocs.io/en/latest/index.html",
+    url="https://github.com/thumbor/thumbor-plugins",
     license="MIT",
     description="Thumbor optimizer to run pngquant",
+    long_description="""
+        Available Configs:
+        - PNGQUANT_PATH
+        - PNGQUANT_QUALITY
+        - PNGQUANT_SPEED
+
+        This package is part of the thumbor-plugins repository.
+        For more information, visit: https://github.com/thumbor/thumbor-plugins
+    """,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

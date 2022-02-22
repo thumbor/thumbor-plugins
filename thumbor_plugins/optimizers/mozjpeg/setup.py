@@ -11,9 +11,17 @@ setup(
     keywords="thumbor optimizers mozjpeg",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
-    url="https://thumbor.readthedocs.io/en/latest/index.html",
+    url="https://github.com/thumbor/thumbor-plugins",
     license="MIT",
     description="Thumbor optimizer to run mozjpeg",
+    long_description="""
+        Available Configs:
+        - MOZJPEG_PATH
+        - MOZJPEG_QUALITY
+
+        This package is part of the thumbor-plugins repository.
+        For more information, visit: https://github.com/thumbor/thumbor-plugins
+    """,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

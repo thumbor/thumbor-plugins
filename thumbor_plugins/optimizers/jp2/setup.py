@@ -11,9 +11,16 @@ setup(
     keywords="thumbor optimizers jp2",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
-    url="https://thumbor.readthedocs.io/en/latest/index.html",
+    url="https://github.com/thumbor/thumbor-plugins",
     license="MIT",
     description="Thumbor optimizer to run jp2",
+    long_description="""
+        Available Configs:
+        - JP2_QUALITY
+
+        This package is part of the thumbor-plugins repository.
+        For more information, visit: https://github.com/thumbor/thumbor-plugins
+    """,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

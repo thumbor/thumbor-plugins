@@ -15,6 +15,9 @@ setup(
     license="MIT",
     description="Thumbor optimizer to run jpegrecompress",
     long_description="""
+        Available Configs:
+        - JPEGRECOMPRESS_PATH
+
         This package is part of the thumbor-plugins repository.
         For more information, visit: https://github.com/thumbor/thumbor-plugins
     """,
