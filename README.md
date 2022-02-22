@@ -30,7 +30,7 @@ thumbor-plugins is an open-source project with many contributors. Join them
 [contributing code](https://github.com/thumbor/thumbor-plugins/blob/master/CONTRIBUTING.md).
 
 
-## Breaking change
+## 🚨 Breaking change
 This repository used to be released under a single package in previous versions, `thumbor-plugins`
 
 We broke down into multiple packages to make it easier for developers to contribute, test, and use different versions.
