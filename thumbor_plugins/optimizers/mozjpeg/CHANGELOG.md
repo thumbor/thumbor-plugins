@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.2](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-mozjpeg-v0.1.1...thumbor-plugins-mozjpeg-v0.1.2) (2022-02-22)
+
+
+### Bug Fixes
+
+* Improve package description ([b1dc8ce](https://github.com/thumbor/thumbor-plugins/commit/b1dc8ce2958ea0fd08d64a776fbe4972844e1247))
+
 ### [0.1.1](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-mozjpeg-v0.1.0...thumbor-plugins-mozjpeg-v0.1.1) (2022-02-13)
 
 
