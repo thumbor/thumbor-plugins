@@ -1,7 +1,7 @@
 # thumbor-plugins
 [![Github Actions - tests](https://github.com/thumbor/thumbor-plugins/actions/workflows/test.yml/badge.svg)](https://github.com/thumbor/thumbor-plugins/actions)
 
-This monorepo contains multiple plugins that can be used on Thumbor to add new capabilities, like GifV or Mozjpeg compression.
+This monorepo contains multiple plugins that should be used on [Thumbor](https://github.com/thumbor/thumbor) to add new capabilities, like GifV or Mozjpeg compression.
 Each of the optimizers is released and can be installed separately.
 
 ## 📜 List of thumbor-plugins
