@@ -27,7 +27,7 @@ jobs:
         with:
           key: thumbor-plugins-test-${{ matrix.subject }}-{hash}
           restore-keys: |
-            thumbor-plugins-test-${{ matrix.image-tag }}-
+            thumbor-plugins-test-${{ matrix.subject }}-
             thumbor-plugins-test-
       - uses: actions/checkout@v2
       - id: build-test-image
