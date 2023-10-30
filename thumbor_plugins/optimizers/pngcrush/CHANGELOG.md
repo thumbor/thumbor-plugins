@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngcrush-v0.1.2...thumbor-plugins-pngcrush-v0.1.3) (2023-10-30)
+
+
+### Bug Fixes
+
+* replace images with unknown authors ([#71](https://github.com/thumbor/thumbor-plugins/issues/71)) ([5914c9a](https://github.com/thumbor/thumbor-plugins/commit/5914c9a8671ba094dfd471bfcea3236e74ab5d5f))
+
 ### [0.1.2](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngcrush-v0.1.1...thumbor-plugins-pngcrush-v0.1.2) (2022-02-22)
 
 
