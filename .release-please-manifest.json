@@ -4,6 +4,6 @@
   "thumbor_plugins/optimizers/jp2": "0.1.2",
   "thumbor_plugins/optimizers/optipng": "0.1.2",
   "thumbor_plugins/optimizers/pngquant": "0.1.2",
-  "thumbor_plugins/optimizers/gifv": "0.1.2",
+  "thumbor_plugins/optimizers/gifv": "0.1.3",
   "thumbor_plugins/optimizers/mozjpeg": "0.1.2"
 }

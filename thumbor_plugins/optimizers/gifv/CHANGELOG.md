@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-gifv-v0.1.2...thumbor-plugins-gifv-v0.1.3) (2023-10-30)
+
+
+### Bug Fixes
+
+* **gifv:** Add WebM tests ([a61332a](https://github.com/thumbor/thumbor-plugins/commit/a61332a864e73debdb94f1527a8f4d17d26e947d))
+
 ### [0.1.2](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-gifv-v0.1.1...thumbor-plugins-gifv-v0.1.2) (2022-02-22)
 
 
