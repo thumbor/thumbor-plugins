@@ -11,5 +11,5 @@ class PNGQuantTest(EngineCase):
 
     @gen_test
     async def test_pngquant(self):
-        result = await self.http_client.fetch(self.get_url("/unsafe/bend.png"))
-        self.assert_result_smaller_than_original(result, "bend.png")
+        result = await self.http_client.fetch(self.get_url("/unsafe/bug.png"))
+        self.assert_result_smaller_than_original(result, "bug.png")
