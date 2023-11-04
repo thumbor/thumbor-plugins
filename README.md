@@ -55,7 +55,7 @@ For example, the mozjpeg optimizer is released on the package
 Integration tests uses a bug.png picture by [Marcelo Jorge Vieira][marcelometal]
 licensed under [CC-BY][cc-by].
 
-[cc-by]: https://creativecommons.org/licenses/by/2.0/
+[cc-by]: https://creativecommons.org/licenses/by/4.0/
 [contributing]: https://github.com/thumbor/thumbor-plugins/blob/master/CONTRIBUTING.md
 [marcelometal]: https://www.flickr.com/photos/marcelometal/540719764/
 [thumbor]: https://github.com/thumbor/thumbor
