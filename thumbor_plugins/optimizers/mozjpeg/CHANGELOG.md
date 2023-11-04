@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-mozjpeg-v0.1.2...thumbor-plugins-mozjpeg-v0.1.4) (2023-11-04)
+
+
+### Miscellaneous Chores
+
+* **gifv:** release 0.1.4 ([1a6c7cc](https://github.com/thumbor/thumbor-plugins/commit/1a6c7cc51a005e0aaa03699269d28e08053fad3e))
+
 ### [0.1.2](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-mozjpeg-v0.1.1...thumbor-plugins-mozjpeg-v0.1.2) (2022-02-22)
 
 
