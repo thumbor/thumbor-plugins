@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-gifv-v0.1.3...thumbor-plugins-gifv-v0.1.4) (2023-11-07)
+
+
+### Miscellaneous Chores
+
+* release 0.1.4 ([1ddc858](https://github.com/thumbor/thumbor-plugins/commit/1ddc858bb340cff4383bc6460774f2b56bf32045))
+
 ## [0.1.3](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-gifv-v0.1.2...thumbor-plugins-gifv-v0.1.3) (2023-10-30)
 
 
