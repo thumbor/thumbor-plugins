@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name="thumbor-plugins-optipng",
-    version="0.1.4",
+    version="0.1.5",
     keywords="thumbor optimizers optipng",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
