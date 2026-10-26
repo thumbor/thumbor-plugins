@@ -22,7 +22,7 @@ to enable.
 | JPEG Recompress | `thumbor-plugins-jpegrecompress` | `thumbor_plugins.optimizers.jpegrecompress` | Runs `jpeg-recompress` for JPEGs       | Automatic for `.jpg` / `.jpeg`              | `jpeg-recompress`                            | `JPEGRECOMPRESS_PATH`                                 |
 | MozJPEG         | `thumbor-plugins-mozjpeg`        | `thumbor_plugins.optimizers.mozjpeg`        | Runs `cjpeg` from MozJPEG for JPEGs    | Automatic for `.jpg` / `.jpeg`              | `cjpeg` from MozJPEG                         | `MOZJPEG_PATH`, `MOZJPEG_QUALITY`                     |
 | OptiPNG         | `thumbor-plugins-optipng`        | `thumbor_plugins.optimizers.optipng`        | Runs `optipng` for PNGs                | Automatic for `.png`                        | `optipng`                                    | `OPTIPNG_PATH`, `OPTIPNG_LEVEL`, `OPTIPNG_TIMEOUT` |
-| PNGCrush        | `thumbor-plugins-pngcrush`       | `thumbor_plugins.optimizers.pngcrush`       | Runs `pngcrush -reduce` for PNGs       | Automatic for `.png`                        | `pngcrush`                                   | `PNGCRUSH_PATH`                                       |
+| PNGCrush        | `thumbor-plugins-pngcrush`       | `thumbor_plugins.optimizers.pngcrush`       | Runs `pngcrush -reduce` for PNGs       | Automatic for `.png`                        | `pngcrush`                                   | `PNGCRUSH_PATH`, `PNGCRUSH_TIMEOUT` |
 | PNGQuant        | `thumbor-plugins-pngquant`       | `thumbor_plugins.optimizers.pngquant`       | Runs `pngquant` for PNGs               | Automatic for `.png`                        | `pngquant`                                   | `PNGQUANT_PATH`, `PNGQUANT_QUALITY`, `PNGQUANT_SPEED`, `PNGQUANT_TIMEOUT` |
 
 ## Installation
