@@ -5,8 +5,8 @@ thumbor-plugins is a monorepo of optimizers for
 An optimizer post-processes the image thumbor is about to serve, usually by
 running an external binary such as `pngquant` or `ffmpeg` on it. Each
 directory under `thumbor_plugins/optimizers/` is its own PyPI package
-(`thumbor-plugins-<name>`) with its own `setup.py`, `CHANGELOG.md`, tests, and
-release cycle. There is no root package to install.
+(`thumbor-plugins-<name>`) with its own `pyproject.toml`, `CHANGELOG.md`,
+tests, and release cycle. There is no root package to install.
 
 ## Dev Environment Setup
 
@@ -85,7 +85,7 @@ thumbor_plugins/
     <plugin>/
       __init__.py       ← Optimizer(BaseOptimizer) with should_run and optimize
       config.py         ← Config.define(...) for every <PLUGIN>_* setting
-      setup.py          ← package metadata; release-please bumps version
+      pyproject.toml    ← package metadata; release-please bumps version
       CHANGELOG.md      ← written by release-please, do not edit by hand
       tests/
         unit/           ← mocks the binary, runs anywhere
@@ -130,14 +130,14 @@ Makefile                ← make setup, lint, format, test_<plugin>, test_unit
   each change to one package (`fix(pngquant): ...`) whenever possible, since
   release-please only looks at the commits that touch that package's
   directory.
-- Never hand-edit a `CHANGELOG.md`, the `version` in a `setup.py`, or
+- Never hand-edit a `CHANGELOG.md`, the `version` in a `pyproject.toml`, or
   `.release-please-manifest.json`; the release PR changes all three. The
   only exception is adding a new package to the manifest.
 - Every change must include tests. Run `make lint` and `make test_<plugin>`
   for the package you touched before opening a PR.
 - To add an optimizer, copy an existing directory, rename the package in
-  `setup.py`, `config.py` and the `config` import, give it a Dockerfile that
-  installs its binary, register it in `release-please-config.json` and
+  `pyproject.toml`, `config.py` and the `config` import, give it a Dockerfile
+  that installs its binary, register it in `release-please-config.json` and
   `.release-please-manifest.json`, and add it to the README table.
 - Dependabot opens daily PRs for `test_requirements.txt`. A stale workflow
   is checked in, but GitHub disabled it for inactivity in June 2022, so it

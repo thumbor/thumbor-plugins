@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thumbor-plugins-pngcrush"
+version = "0.1.4"
+description = "Thumbor optimizer to run pngcrush"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Guilherme Souza", email = "guilherme@souza.tech" }]
+keywords = ["thumbor", "optimizers", "pngcrush"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Multimedia :: Graphics :: Presentation",
+]
+dependencies = [
+    "thumbor>=7",
+]
+
+[project.readme]
+content-type = "text/markdown"
+text = """
+# thumbor-plugins-pngcrush
+
+Runs `pngcrush -reduce` on PNG output.
+
+Settings: `PNGCRUSH_PATH`, `PNGCRUSH_TIMEOUT`.
+
+This package is part of the thumbor-plugins repository:
+https://github.com/thumbor/thumbor-plugins
+"""
+
+[project.urls]
+Homepage = "https://github.com/thumbor/thumbor-plugins"
+Changelog = "https://github.com/thumbor/thumbor-plugins/blob/master/thumbor_plugins/optimizers/pngcrush/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["thumbor_plugins.optimizers.pngcrush"]
+
+[tool.setuptools.package-dir]
+"thumbor_plugins.optimizers.pngcrush" = "."

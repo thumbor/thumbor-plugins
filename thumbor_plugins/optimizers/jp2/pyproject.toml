@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thumbor-plugins-jp2"
+version = "0.1.4"
+description = "Thumbor optimizer to run jp2"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Guilherme Souza", email = "guilherme@souza.tech" }]
+keywords = ["thumbor", "optimizers", "jp2"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Multimedia :: Graphics :: Presentation",
+]
+dependencies = [
+    "thumbor>=7",
+    "Pillow",
+]
+
+[project.readme]
+content-type = "text/markdown"
+text = """
+# thumbor-plugins-jp2
+
+Writes JPEG 2000 output through Pillow for requests whose filter chain contains `jp2`.
+
+Settings: `JP2_QUALITY`.
+
+This package is part of the thumbor-plugins repository:
+https://github.com/thumbor/thumbor-plugins
+"""
+
+[project.urls]
+Homepage = "https://github.com/thumbor/thumbor-plugins"
+Changelog = "https://github.com/thumbor/thumbor-plugins/blob/master/thumbor_plugins/optimizers/jp2/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["thumbor_plugins.optimizers.jp2"]
+
+[tool.setuptools.package-dir]
+"thumbor_plugins.optimizers.jp2" = "."
