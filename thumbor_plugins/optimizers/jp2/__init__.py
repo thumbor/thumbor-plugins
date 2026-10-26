@@ -11,7 +11,6 @@
 import thumbor_plugins.optimizers.jp2.config  # noqa
 
 from thumbor.optimizers import BaseOptimizer
-from thumbor.utils import logger
 from PIL import Image
 
 

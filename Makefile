@@ -1,5 +1,12 @@
 setup:
-	@pip install -e .[tests]
+	@pip install -r test_requirements.txt -r lint_requirements.txt
+
+lint:
+	ruff check .
+	ruff format --check .
+
+format:
+	ruff format .
 
 test_%:
 	@docker build -t $* -f thumbor_plugins/optimizers/$*/tests/docker/Dockerfile .
