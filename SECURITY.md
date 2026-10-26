@@ -71,8 +71,16 @@ please consider the following:
   a trusted binary and keep that binary patched. A vulnerability in the
   underlying tool is reachable through any image thumbor is asked to optimize.
 - Treat optimizer settings as trusted operator configuration. Paths and
-  quality or speed values are passed to the binaries through a shell, so never
+  quality or speed values are passed to the binaries as arguments, never
+  through a shell, but they still decide which program runs and how, so never
   populate them from untrusted input.
+- Each optimizer gives its binary `<PLUGIN>_TIMEOUT` seconds (default 30,
+  `FFMPEG_TIMEOUT` defaults to 60) and serves the unoptimized image when the
+  binary fails, writes nothing or times out. thumbor runs optimizers on its
+  event loop thread unless `ENGINE_THREADPOOL_SIZE` is above 0; set it when
+  enabling these optimizers so a slow binary cannot stall every request.
+- `jp2` has no binary but encodes through Pillow's OpenJPEG bindings, so keep
+  Pillow and `libopenjp2` patched as well.
 - Follow thumbor's own hardening guidance: use a strong `SECURITY_KEY`, set
   `ALLOW_UNSAFE_URL = False`, restrict `ALLOWED_SOURCES`, and place thumbor
   behind a reverse proxy or CDN with rate limiting. Optimizers only run on

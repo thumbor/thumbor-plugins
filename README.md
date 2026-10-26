@@ -17,12 +17,12 @@ to enable.
 
 | Optimizer       | PyPI package                     | Thumbor module                              | What it does                           | Trigger                                     | Runtime dependency                           | Config                                                |
 | --------------- | -------------------------------- | ------------------------------------------- | -------------------------------------- | ------------------------------------------- | -------------------------------------------- | ----------------------------------------------------- |
-| GifV            | `thumbor-plugins-gifv`           | `thumbor_plugins.optimizers.gifv`           | Converts GIF requests into MP4 or WebM | Requests whose filter chain has `gifv`, `gifv()`, `gifv(mp4)` or `gifv(webm)` | `ffmpeg`                                     | `FFMPEG_PATH`, `FFMPEG_TIMEOUT` |
-| JP2             | `thumbor-plugins-jp2`            | `thumbor_plugins.optimizers.jp2`            | Writes JPEG 2000 output through Pillow | Requests whose filter chain contains `jp2`  | Pillow built with JPEG 2000/OpenJPEG support | `JP2_QUALITY`                                         |
-| JPEG Recompress | `thumbor-plugins-jpegrecompress` | `thumbor_plugins.optimizers.jpegrecompress` | Runs `jpeg-recompress` for JPEGs       | Automatic for `.jpg` / `.jpeg`              | `jpeg-recompress`                            | `JPEGRECOMPRESS_PATH`, `JPEGRECOMPRESS_TIMEOUT` |
-| MozJPEG         | `thumbor-plugins-mozjpeg`        | `thumbor_plugins.optimizers.mozjpeg`        | Runs `cjpeg` from MozJPEG for JPEGs    | Automatic for `.jpg` / `.jpeg`              | `cjpeg` from MozJPEG                         | `MOZJPEG_PATH`, `MOZJPEG_QUALITY`, `MOZJPEG_TIMEOUT` |
-| OptiPNG         | `thumbor-plugins-optipng`        | `thumbor_plugins.optimizers.optipng`        | Runs `optipng` for PNGs                | Automatic for `.png`                        | `optipng`                                    | `OPTIPNG_PATH`, `OPTIPNG_LEVEL`, `OPTIPNG_TIMEOUT` |
-| PNGCrush        | `thumbor-plugins-pngcrush`       | `thumbor_plugins.optimizers.pngcrush`       | Runs `pngcrush -reduce` for PNGs       | Automatic for `.png`                        | `pngcrush`                                   | `PNGCRUSH_PATH`, `PNGCRUSH_TIMEOUT` |
+| GifV            | `thumbor-plugins-gifv`           | `thumbor_plugins.optimizers.gifv`           | Converts GIF requests into MP4 or WebM | Requests whose filter chain has `gifv`, `gifv()`, `gifv(mp4)` or `gifv(webm)` | `ffmpeg`                                     | `FFMPEG_PATH`, `FFMPEG_TIMEOUT`                                           |
+| JP2             | `thumbor-plugins-jp2`            | `thumbor_plugins.optimizers.jp2`            | Writes JPEG 2000 output through Pillow | Requests whose filter chain contains `jp2`  | Pillow built with JPEG 2000/OpenJPEG support | `JP2_QUALITY`                                                             |
+| JPEG Recompress | `thumbor-plugins-jpegrecompress` | `thumbor_plugins.optimizers.jpegrecompress` | Runs `jpeg-recompress` for JPEGs       | Automatic for `.jpg` / `.jpeg`              | `jpeg-recompress`                            | `JPEGRECOMPRESS_PATH`, `JPEGRECOMPRESS_TIMEOUT`                           |
+| MozJPEG         | `thumbor-plugins-mozjpeg`        | `thumbor_plugins.optimizers.mozjpeg`        | Runs `cjpeg` from MozJPEG for JPEGs    | Automatic for `.jpg` / `.jpeg`              | `cjpeg` from MozJPEG                         | `MOZJPEG_PATH`, `MOZJPEG_QUALITY`, `MOZJPEG_TIMEOUT`                      |
+| OptiPNG         | `thumbor-plugins-optipng`        | `thumbor_plugins.optimizers.optipng`        | Runs `optipng` for PNGs                | Automatic for `.png`                        | `optipng`                                    | `OPTIPNG_PATH`, `OPTIPNG_LEVEL`, `OPTIPNG_TIMEOUT`                        |
+| PNGCrush        | `thumbor-plugins-pngcrush`       | `thumbor_plugins.optimizers.pngcrush`       | Runs `pngcrush -reduce` for PNGs       | Automatic for `.png`                        | `pngcrush`                                   | `PNGCRUSH_PATH`, `PNGCRUSH_TIMEOUT`                                       |
 | PNGQuant        | `thumbor-plugins-pngquant`       | `thumbor_plugins.optimizers.pngquant`       | Runs `pngquant` for PNGs               | Automatic for `.png`                        | `pngquant`                                   | `PNGQUANT_PATH`, `PNGQUANT_QUALITY`, `PNGQUANT_SPEED`, `PNGQUANT_TIMEOUT` |
 
 ## Installation
@@ -70,6 +70,25 @@ How each optimizer behaves:
   `gifv(mp4)` or `gifv(webm)` as a filter of its own.
 - `jp2` runs when the request filter chain contains `jp2`.
 
+### Failure handling and timeouts
+
+Every optimizer that wraps a binary runs it without a shell and waits at most
+`<PLUGIN>_TIMEOUT` seconds (`PNGQUANT_TIMEOUT`, `MOZJPEG_TIMEOUT`, and so on;
+`FFMPEG_TIMEOUT` for `gifv`). The defaults are 30 seconds, 60 for `ffmpeg`;
+`0` disables the limit. When the binary exits with an error, writes nothing or
+times out, the optimizer logs a warning and thumbor serves the unoptimized
+image instead of failing the request. `pngquant` exiting with status 99
+(quality target not met) is a normal outcome, logged at debug level.
+
+thumbor runs optimizers on its event loop thread unless
+`ENGINE_THREADPOOL_SIZE` is greater than zero. Set it in `thumbor.conf` when
+you enable these optimizers, otherwise a single slow binary stalls every
+request:
+
+```python
+ENGINE_THREADPOOL_SIZE = 4
+```
+
 ### GifV examples
 
 Convert a GIF into MP4:
@@ -116,7 +135,7 @@ independently, and keep tests isolated per optimizer.
 ### Requirements
 
 - Docker for integration tests
-- Python 3
+- Python 3.10 or newer on the host (the test images use 3.12)
 
 The test suite installs `thumbor==7.*` from `test_requirements.txt`.
 
@@ -136,10 +155,17 @@ Run all unit tests with:
 make test_unit
 ```
 
+Lint and check formatting with `ruff`:
+
+```bash
+make setup
+make lint
+```
+
 To iterate locally on a single optimizer package:
 
 ```bash
-pip install -r test_requirements.txt
+make setup
 pip install -e thumbor_plugins/optimizers/pngquant
 pytest thumbor_plugins/optimizers/pngquant/tests/unit
 ```
