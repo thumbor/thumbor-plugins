@@ -17,3 +17,10 @@ Config.define(
     "Optimization speed for pngquant 1-11, 1 is slowest",
     "Optimizers",
 )
+
+Config.define(
+    "PNGQUANT_TIMEOUT",
+    30,
+    "Seconds to wait for pngquant before serving the unoptimized image (0 disables)",
+    "Optimizers",
+)
