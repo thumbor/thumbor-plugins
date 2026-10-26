@@ -62,9 +62,9 @@ release cycle. There is no root package to install.
   `Content-Type` instead).
 - CI (`.github/workflows/test.yml`) builds its matrix by finding every
   `Dockerfile` under `thumbor_plugins/`, runs each package's tests in its own
-  image, and uploads coverage to Coveralls. The release workflow discovers
-  packages the same way, so a Dockerfile is what registers a package with
-  both.
+  image, and uploads coverage to Coveralls. The release workflow does not
+  look at Dockerfiles: it only releases the paths listed in
+  `release-please-config.json`.
 
 ## Code style
 
@@ -131,12 +131,14 @@ Makefile                ← make test_<plugin> and make test_unit
   release-please only looks at the commits that touch that package's
   directory.
 - Never hand-edit a `CHANGELOG.md`, the `version` in a `setup.py`, or
-  `.release-please-manifest.json`; the release PR changes all three.
+  `.release-please-manifest.json`; the release PR changes all three. The
+  only exception is adding a new package to the manifest.
 - Every change must include tests. Run `make test_<plugin>` for the package
   you touched before opening a PR.
 - To add an optimizer, copy an existing directory, rename the package in
   `setup.py`, `config.py` and the `config` import, give it a Dockerfile that
-  installs its binary, and add it to the README table.
+  installs its binary, register it in `release-please-config.json` and
+  `.release-please-manifest.json`, and add it to the README table.
 - Dependabot opens daily PRs for `test_requirements.txt`. A stale workflow
   is checked in, but GitHub disabled it for inactivity in June 2022, so it
   closes nothing.
