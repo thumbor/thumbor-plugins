@@ -17,7 +17,7 @@ to enable.
 
 | Optimizer       | PyPI package                     | Thumbor module                              | What it does                           | Trigger                                     | Runtime dependency                           | Config                                                |
 | --------------- | -------------------------------- | ------------------------------------------- | -------------------------------------- | ------------------------------------------- | -------------------------------------------- | ----------------------------------------------------- |
-| GifV            | `thumbor-plugins-gifv`           | `thumbor_plugins.optimizers.gifv`           | Converts GIF requests into MP4 or WebM | Requests whose filter chain contains `gifv` | `ffmpeg`                                     | `FFMPEG_PATH`                                         |
+| GifV            | `thumbor-plugins-gifv`           | `thumbor_plugins.optimizers.gifv`           | Converts GIF requests into MP4 or WebM | Requests whose filter chain has `gifv`, `gifv()`, `gifv(mp4)` or `gifv(webm)` | `ffmpeg`                                     | `FFMPEG_PATH`, `FFMPEG_TIMEOUT` |
 | JP2             | `thumbor-plugins-jp2`            | `thumbor_plugins.optimizers.jp2`            | Writes JPEG 2000 output through Pillow | Requests whose filter chain contains `jp2`  | Pillow built with JPEG 2000/OpenJPEG support | `JP2_QUALITY`                                         |
 | JPEG Recompress | `thumbor-plugins-jpegrecompress` | `thumbor_plugins.optimizers.jpegrecompress` | Runs `jpeg-recompress` for JPEGs       | Automatic for `.jpg` / `.jpeg`              | `jpeg-recompress`                            | `JPEGRECOMPRESS_PATH`                                 |
 | MozJPEG         | `thumbor-plugins-mozjpeg`        | `thumbor_plugins.optimizers.mozjpeg`        | Runs `cjpeg` from MozJPEG for JPEGs    | Automatic for `.jpg` / `.jpeg`              | `cjpeg` from MozJPEG                         | `MOZJPEG_PATH`, `MOZJPEG_QUALITY`                     |
@@ -66,7 +66,8 @@ How each optimizer behaves:
 
 - `mozjpeg` and `jpegrecompress` run for JPEG requests.
 - `pngquant`, `pngcrush`, and `optipng` run for PNG requests.
-- `gifv` runs only when the request filter chain contains `gifv`.
+- `gifv` runs only when the request filter chain has `gifv`, `gifv()`,
+  `gifv(mp4)` or `gifv(webm)` as a filter of its own.
 - `jp2` runs when the request filter chain contains `jp2`.
 
 ### GifV examples
