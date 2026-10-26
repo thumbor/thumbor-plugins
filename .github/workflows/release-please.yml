@@ -23,8 +23,8 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
 
-  publish:
-    name: publish ${{ matrix.path }}
+  build:
+    name: build ${{ matrix.path }}
     needs: release-please
     if: ${{ needs.release-please.outputs.paths_released != '' && needs.release-please.outputs.paths_released != '[]' }}
     runs-on: ubuntu-latest
@@ -42,10 +42,42 @@ jobs:
         run: |
           python -m pip install -U pip build
           python -m build
+      - name: Artifact name
+        id: artifact
+        env:
+          RELEASE_PATH: ${{ matrix.path }}
+        run: echo "name=dist-${RELEASE_PATH//\//-}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: ${{ matrix.path }}/dist/
+          if-no-files-found: error
+
+  publish:
+    name: publish ${{ matrix.path }}
+    needs: [release-please, build]
+    # without !cancelled() one failed build leg would skip every publish leg
+    if: ${{ !cancelled() && needs.release-please.outputs.paths_released != '' && needs.release-please.outputs.paths_released != '[]' }}
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        path: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
+    steps:
+      - name: Artifact name
+        id: artifact
+        env:
+          RELEASE_PATH: ${{ matrix.path }}
+        run: echo "name=dist-${RELEASE_PATH//\//-}" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: dist/
       - name: Publish a Python distribution to PyPI
         uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          packages-dir: ${{ matrix.path }}/dist
+          packages-dir: dist/
           skip-existing: true
