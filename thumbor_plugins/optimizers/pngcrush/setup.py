@@ -17,6 +17,7 @@ setup(
     long_description="""
         Available Configs:
         - PNGCRUSH_PATH
+        - PNGCRUSH_TIMEOUT
 
         This package is part of the thumbor-plugins repository.
         For more information, visit: https://github.com/thumbor/thumbor-plugins
