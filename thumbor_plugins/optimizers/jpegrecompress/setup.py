@@ -4,7 +4,6 @@
 from setuptools import setup
 
 
-
 setup(
     name="thumbor-plugins-jpegrecompress",
     version="0.1.4",

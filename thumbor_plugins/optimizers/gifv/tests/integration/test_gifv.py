@@ -20,7 +20,9 @@ class GIFVTest(EngineCase):
     @gen_test
     async def test_gifv_with_background(self):
         response = await self.http_client.fetch(
-            self.get_url("/unsafe/filters:gifv(mp4):background_color(ff00ff)/animated.gif")
+            self.get_url(
+                "/unsafe/filters:gifv(mp4):background_color(ff00ff)/animated.gif"
+            )
         )
         self.assertEqual(response.code, 200)
         self.assertEqual(response.headers["Content-Type"], "video/mp4")

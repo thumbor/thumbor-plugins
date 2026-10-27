@@ -4,7 +4,6 @@
 from setuptools import setup
 
 
-
 setup(
     name="thumbor-plugins-pngcrush",
     version="0.1.4",

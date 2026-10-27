@@ -14,14 +14,12 @@ release cycle. There is no root package to install.
   per-package test suite; CI builds one image per optimizer from
   `thumbor_plugins/optimizers/<plugin>/tests/docker/Dockerfile`
   (`python:3.12-slim` plus the binary that optimizer wraps).
-- The root `make setup` target runs `pip install -e .[tests]`, but there is no
-  `setup.py` at the root, so it fails. Install packages individually instead.
-- To iterate on one optimizer on the host, install the shared test
-  requirements (`thumbor==7.*`, `pytest`, `pytest-cov`) and the package in
-  editable mode:
+- `make setup` installs the shared test requirements (`thumbor==7.*`,
+  `pytest`, `pytest-cov`) and the lint tooling (`ruff`) on the host. To
+  iterate on one optimizer, also install its package in editable mode:
 
   ```
-  pip install -r test_requirements.txt
+  make setup
   pip install -e thumbor_plugins/optimizers/pngquant
   ```
 
@@ -68,10 +66,10 @@ release cycle. There is no root package to install.
 
 ## Code style
 
-- No formatter or linter is configured or enforced in this repo. Most code is
-  black-formatted at black's default 88 columns with double quotes; keep new
-  code black-compatible and do not reformat files you are not otherwise
-  changing.
+- `ruff` is the formatter and linter, configured in `ruff.toml` (88 columns,
+  black-compatible style, `E`/`F`/`W` rules). `make lint` runs `ruff check`
+  and `ruff format --check`; `make format` rewrites files. The Lint workflow
+  runs the same two commands on pushes to `master` and on every pull request.
 - Each `__init__.py` imports its own `config` module for the side effect of
   registering the package's settings:
 
@@ -96,7 +94,9 @@ thumbor_plugins/
   test_helpers/
     engine.py           ← EngineCase, the base class for integration tests
 test_requirements.txt   ← thumbor, pytest, pytest-cov pins for every package
-Makefile                ← make test_<plugin> and make test_unit
+lint_requirements.txt   ← ruff pin used by make lint and the Lint workflow
+ruff.toml               ← lint and format configuration
+Makefile                ← make setup, lint, format, test_<plugin>, test_unit
 .release-please-manifest.json ← current released version of each package
 .github/workflows/      ← tests, release-please + PyPI publish (CodeQL
                            and stale exist but are disabled)
@@ -133,8 +133,8 @@ Makefile                ← make test_<plugin> and make test_unit
 - Never hand-edit a `CHANGELOG.md`, the `version` in a `setup.py`, or
   `.release-please-manifest.json`; the release PR changes all three. The
   only exception is adding a new package to the manifest.
-- Every change must include tests. Run `make test_<plugin>` for the package
-  you touched before opening a PR.
+- Every change must include tests. Run `make lint` and `make test_<plugin>`
+  for the package you touched before opening a PR.
 - To add an optimizer, copy an existing directory, rename the package in
   `setup.py`, `config.py` and the `config` import, give it a Dockerfile that
   installs its binary, register it in `release-please-config.json` and

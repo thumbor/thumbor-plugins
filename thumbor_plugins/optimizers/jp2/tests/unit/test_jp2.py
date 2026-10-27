@@ -8,12 +8,10 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2011 globo.com thumbor@googlegroups.com
 
-from shutil import which
 from unittest import TestCase, mock
 
 from thumbor.config import Config
 from thumbor.context import Context, RequestParameters
-from thumbor.utils import EXTENSION
 
 from thumbor_plugins.optimizers.jp2 import Optimizer
 
