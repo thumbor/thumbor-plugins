@@ -19,6 +19,7 @@ setup(
         - PNGQUANT_PATH
         - PNGQUANT_QUALITY
         - PNGQUANT_SPEED
+        - PNGQUANT_TIMEOUT
 
         This package is part of the thumbor-plugins repository.
         For more information, visit: https://github.com/thumbor/thumbor-plugins
