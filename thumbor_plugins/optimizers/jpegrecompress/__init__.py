@@ -8,14 +8,15 @@
 # http://www.opensource.org/licenses/mit-license
 
 
+import math
 import os
+import shutil
 import subprocess
 
 import thumbor_plugins.optimizers.jpegrecompress.config  # noqa
 
 from thumbor.optimizers import BaseOptimizer
 from thumbor.utils import logger
-from PIL import Image
 
 
 class Optimizer(BaseOptimizer):
@@ -24,6 +25,18 @@ class Optimizer(BaseOptimizer):
 
         self.runnable = True
         self.jpegrecompress_path = self.context.config.JPEGRECOMPRESS_PATH
+        try:
+            timeout = float(self.context.config.JPEGRECOMPRESS_TIMEOUT or 0)
+            if timeout < 0 or not math.isfinite(timeout):
+                raise ValueError(timeout)
+            self.jpegrecompress_timeout = timeout or None
+        except (TypeError, ValueError):
+            logger.error(
+                "ERROR jpegrecompress timeout '{0}' is not a finite number >= 0".format(
+                    self.context.config.JPEGRECOMPRESS_TIMEOUT
+                )
+            )
+            self.runnable = False
 
         if not (
             os.path.isfile(self.jpegrecompress_path)
@@ -40,11 +53,37 @@ class Optimizer(BaseOptimizer):
         return ("jpg" in image_extension or "jpeg" in image_extension) and self.runnable
 
     def optimize(self, buffer, input_file, output_file):
-        command = "%s --strip --accurate --loops 10 %s %s" % (
+        command = [
             self.jpegrecompress_path,
+            "--quiet",
+            "--strip",
+            "--accurate",
+            "--loops",
+            "10",
             input_file,
             output_file,
-        )
-        with open(os.devnull) as null:
-            logger.debug("[JPEG-RECOMPRESS] running: " + command)
-            subprocess.call(command, shell=True, stdin=null)
+        ]
+        logger.debug("[JPEG-RECOMPRESS] running: %s", " ".join(command))
+        try:
+            result = subprocess.run(
+                command,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+                timeout=self.jpegrecompress_timeout,
+            )
+        except subprocess.TimeoutExpired:
+            logger.warning(
+                "[JPEG-RECOMPRESS] timed out after %ss, serving the unoptimized image",
+                self.jpegrecompress_timeout,
+            )
+            shutil.copyfile(input_file, output_file)
+            return
+
+        if result.returncode != 0 or os.path.getsize(output_file) == 0:
+            logger.warning(
+                "[JPEG-RECOMPRESS] exited with %s, serving the unoptimized image: %s",
+                result.returncode,
+                result.stderr.decode("utf-8", "replace").strip(),
+            )
+            shutil.copyfile(input_file, output_file)
