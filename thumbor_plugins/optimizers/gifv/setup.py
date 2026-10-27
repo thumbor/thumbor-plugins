@@ -42,6 +42,6 @@ setup(
         "thumbor_plugins.optimizers.gifv": ".",
     },
     install_requires=[
-        "webcolors==1.*,>=1.13.0",
+        "webcolors>=1,<26",
     ],
 )
