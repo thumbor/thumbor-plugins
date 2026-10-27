@@ -101,7 +101,7 @@ thumbor_plugins/
     <plugin>/
       __init__.py
       config.py
-      setup.py
+      pyproject.toml
       CHANGELOG.md
       tests/
   test_helpers/
