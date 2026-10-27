@@ -18,6 +18,7 @@ setup(
         Available Configs:
         - MOZJPEG_PATH
         - MOZJPEG_QUALITY
+        - MOZJPEG_TIMEOUT
 
         This package is part of the thumbor-plugins repository.
         For more information, visit: https://github.com/thumbor/thumbor-plugins
