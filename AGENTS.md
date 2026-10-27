@@ -13,7 +13,7 @@ release cycle. There is no root package to install.
 - **Prerequisites:** Python 3 and Docker. Docker is all you need for the full
   per-package test suite; CI builds one image per optimizer from
   `thumbor_plugins/optimizers/<plugin>/tests/docker/Dockerfile`
-  (`python:3.9-slim` plus the binary that optimizer wraps).
+  (`python:3.12-slim` plus the binary that optimizer wraps).
 - The root `make setup` target runs `pip install -e .[tests]`, but there is no
   `setup.py` at the root, so it fails. Install packages individually instead.
 - To iterate on one optimizer on the host, install the shared test
