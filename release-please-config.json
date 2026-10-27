@@ -1,3 +1,38 @@
 {
-    "bootstrap-sha": "abbad25f2d17370e46b0ad4921713312ba30d989"
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "abbad25f2d17370e46b0ad4921713312ba30d989",
+  "release-type": "python",
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "separate-pull-requests": true,
+  "packages": {
+    "thumbor_plugins/optimizers/gifv": {
+      "component": "thumbor-plugins-gifv",
+      "package-name": "thumbor-plugins-gifv"
+    },
+    "thumbor_plugins/optimizers/jp2": {
+      "component": "thumbor-plugins-jp2",
+      "package-name": "thumbor-plugins-jp2"
+    },
+    "thumbor_plugins/optimizers/jpegrecompress": {
+      "component": "thumbor-plugins-jpegrecompress",
+      "package-name": "thumbor-plugins-jpegrecompress"
+    },
+    "thumbor_plugins/optimizers/mozjpeg": {
+      "component": "thumbor-plugins-mozjpeg",
+      "package-name": "thumbor-plugins-mozjpeg"
+    },
+    "thumbor_plugins/optimizers/optipng": {
+      "component": "thumbor-plugins-optipng",
+      "package-name": "thumbor-plugins-optipng"
+    },
+    "thumbor_plugins/optimizers/pngcrush": {
+      "component": "thumbor-plugins-pngcrush",
+      "package-name": "thumbor-plugins-pngcrush"
+    },
+    "thumbor_plugins/optimizers/pngquant": {
+      "component": "thumbor-plugins-pngquant",
+      "package-name": "thumbor-plugins-pngquant"
+    }
+  }
 }
