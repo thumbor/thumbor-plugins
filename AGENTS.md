@@ -58,7 +58,8 @@ release cycle. There is no root package to install.
   a real thumbor app (file loader, PIL engine, no storage) with the class
   attribute `optimizer` as the only entry in `OPTIMIZERS` and `fixtures_path`
   pointing at `tests/integration/imgs/`, then assert that the optimized
-  response is smaller than the fixture.
+  response is smaller than the fixture (`gifv` asserts the video
+  `Content-Type` instead).
 - CI (`.github/workflows/test.yml`) builds its matrix by finding every
   `Dockerfile` under `thumbor_plugins/`, runs each package's tests in its own
   image, and uploads coverage to Coveralls. The release workflow discovers
@@ -97,7 +98,8 @@ thumbor_plugins/
 test_requirements.txt   ← thumbor, pytest, pytest-cov pins for every package
 Makefile                ← make test_<plugin> and make test_unit
 .release-please-manifest.json ← current released version of each package
-.github/workflows/      ← tests, release-please + PyPI publish, CodeQL, stale
+.github/workflows/      ← tests, release-please + PyPI publish (CodeQL
+                           and stale exist but are disabled)
 ```
 
 ## How an optimizer works
@@ -109,11 +111,14 @@ Makefile                ← make test_<plugin> and make test_unit
   file, calls `optimize(image_buffer, input_file, output_file)`, and serves
   whatever was written to `output_file`.
 - `should_run` is where format gating lives. `mozjpeg`, `jpegrecompress`,
-  `optipng`, `pngcrush`, and `pngquant` match on the extension; `gifv` and
-  `jp2` additionally require their filter name in `context.request.filters`.
+  `optipng`, `pngcrush`, and `pngquant` match on the extension; `gifv`
+  requires both the `.gif` extension and the `gifv` filter in
+  `context.request.filters`; `jp2` checks only for the `jp2` filter (a
+  substring match on the filter string) and runs for any output format.
 - Optimizers that wrap a binary check the configured path (in `__init__`, or
   in `should_run` for `gifv`) and disable themselves with a logged error when
-  it is missing or not executable, instead of failing the request.
+  it is missing or not executable (`gifv` only checks that the path exists
+  and logs a warning), instead of failing the request.
 - Settings are registered in `config.py` with
   `Config.define(name, default, description, "Optimizers")` and read from
   `self.context.config`.
@@ -132,8 +137,9 @@ Makefile                ← make test_<plugin> and make test_unit
 - To add an optimizer, copy an existing directory, rename the package in
   `setup.py`, `config.py` and the `config` import, give it a Dockerfile that
   installs its binary, and add it to the README table.
-- Dependabot opens daily PRs for `test_requirements.txt`, and the stale
-  workflow closes PRs after 45 days without activity.
+- Dependabot opens daily PRs for `test_requirements.txt`. A stale workflow
+  is checked in, but GitHub disabled it for inactivity in June 2022, so it
+  closes nothing.
 
 ## Security considerations
 
@@ -150,6 +156,8 @@ Makefile                ← make test_<plugin> and make test_unit
   `ALLOW_UNSAFE_URL = False`, `ALLOWED_SOURCES`, `MAX_PIXELS`) decides which
   images ever reach a binary. The test helper deliberately uses
   `SECURITY_KEY="ACME-SEC"` and `/unsafe/` URLs.
-- CodeQL scans Python on every push and PR to `master` and weekly.
+- A CodeQL workflow is checked in, but GitHub disabled it for inactivity in
+  June 2022 and it still pins `codeql-action@v1`; no code scanning runs
+  today.
 - Report vulnerabilities privately through GitHub's Private Vulnerability
   Reporting (the repository's Security tab), never in a public issue.
