@@ -10,7 +10,7 @@ tests, and release cycle. There is no root package to install.
 
 ## Dev Environment Setup
 
-- **Prerequisites:** Python 3.10 or newer and Docker. Docker is all you need
+- **Prerequisites:** Python 3.11 or newer and Docker. Docker is all you need
   for the full per-package test suite; CI builds one image per optimizer from
   `thumbor_plugins/optimizers/<plugin>/tests/docker/Dockerfile`
   (`python:3.12-slim` plus the binary that optimizer wraps).

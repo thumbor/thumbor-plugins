@@ -135,7 +135,7 @@ independently, and keep tests isolated per optimizer.
 ### Requirements
 
 - Docker for integration tests
-- Python 3.10 or newer on the host (the test images use 3.12)
+- Python 3.11 or newer on the host (the test images use 3.12)
 
 The test suite installs `thumbor==7.*` from `test_requirements.txt`.
 
