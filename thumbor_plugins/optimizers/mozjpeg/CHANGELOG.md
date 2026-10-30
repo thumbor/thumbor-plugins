@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.5](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-mozjpeg-v0.1.4...thumbor-plugins-mozjpeg-v0.1.5) (2026-10-30)
+
+
+### Bug Fixes
+
+* **mozjpeg:** run cjpeg without a shell and survive failures ([#127](https://github.com/thumbor/thumbor-plugins/issues/127)) ([e8cf217](https://github.com/thumbor/thumbor-plugins/commit/e8cf217a5120608c7b89a43c9c0f505c6e0cc63d))
+
+
+### Miscellaneous Chores
+
+* **master:** release thumbor-plugins-gifv 0.1.5 ([c7ae1e6](https://github.com/thumbor/thumbor-plugins/commit/c7ae1e6cc3ec809de67af747b64a34c41d9de358))
+
 ## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-mozjpeg-v0.1.2...thumbor-plugins-mozjpeg-v0.1.4) (2023-11-07)
 
 
