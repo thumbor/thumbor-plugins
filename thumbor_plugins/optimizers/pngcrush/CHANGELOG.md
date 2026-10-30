@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.5](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngcrush-v0.1.4...thumbor-plugins-pngcrush-v0.1.5) (2026-10-30)
+
+
+### Bug Fixes
+
+* **pngcrush:** run pngcrush without a shell and survive failures ([#123](https://github.com/thumbor/thumbor-plugins/issues/123)) ([2645c7d](https://github.com/thumbor/thumbor-plugins/commit/2645c7d7e856738646594f838635db0f056b6899))
+
+
+### Miscellaneous Chores
+
+* **master:** release thumbor-plugins-gifv 0.1.5 ([c7ae1e6](https://github.com/thumbor/thumbor-plugins/commit/c7ae1e6cc3ec809de67af747b64a34c41d9de358))
+
 ## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngcrush-v0.1.3...thumbor-plugins-pngcrush-v0.1.4) (2023-11-07)
 
 
