@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-gifv-v0.1.5...thumbor-plugins-gifv-v0.1.6) (2026-10-30)
+
+
+### Bug Fixes
+
+* **gifv:** parse filters strictly, check ffmpeg's exit status, add timeout ([#128](https://github.com/thumbor/thumbor-plugins/issues/128)) ([e874a2b](https://github.com/thumbor/thumbor-plugins/commit/e874a2bca06991a31bdaac771788bd64507b9cab))
+
 ## [0.1.5](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-gifv-v0.1.4...thumbor-plugins-gifv-v0.1.5) (2024-01-08)
 
 
