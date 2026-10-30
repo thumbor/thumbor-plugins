@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.5](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-optipng-v0.1.4...thumbor-plugins-optipng-v0.1.5) (2026-10-30)
+
+
+### Bug Fixes
+
+* **optipng:** run optipng without a shell, coerce the level, add a timeout ([#121](https://github.com/thumbor/thumbor-plugins/issues/121)) ([f5a0319](https://github.com/thumbor/thumbor-plugins/commit/f5a03198476219f0589149882a0896a5154f36cd))
+
+
+### Miscellaneous Chores
+
+* **master:** release thumbor-plugins-gifv 0.1.5 ([c7ae1e6](https://github.com/thumbor/thumbor-plugins/commit/c7ae1e6cc3ec809de67af747b64a34c41d9de358))
+
 ## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-optipng-v0.1.3...thumbor-plugins-optipng-v0.1.4) (2023-11-07)
 
 
