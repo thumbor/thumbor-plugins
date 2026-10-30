@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.5](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-jpegrecompress-v0.1.4...thumbor-plugins-jpegrecompress-v0.1.5) (2026-10-30)
+
+
+### Bug Fixes
+
+* **jpegrecompress:** run jpeg-recompress without a shell, survive failures ([#124](https://github.com/thumbor/thumbor-plugins/issues/124)) ([e641d4f](https://github.com/thumbor/thumbor-plugins/commit/e641d4fce5e1ce33ef80bb209fb0e3b245f6404c))
+
+
+### Miscellaneous Chores
+
+* **master:** release thumbor-plugins-gifv 0.1.5 ([c7ae1e6](https://github.com/thumbor/thumbor-plugins/commit/c7ae1e6cc3ec809de67af747b64a34c41d9de358))
+
 ## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-jpegrecompress-v0.1.3...thumbor-plugins-jpegrecompress-v0.1.4) (2023-11-07)
 
 
