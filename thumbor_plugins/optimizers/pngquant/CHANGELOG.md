@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.5](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngquant-v0.1.4...thumbor-plugins-pngquant-v0.1.5) (2026-10-30)
+
+
+### Bug Fixes
+
+* **pngquant:** run pngquant without a shell and survive failures ([#122](https://github.com/thumbor/thumbor-plugins/issues/122)) ([1041b08](https://github.com/thumbor/thumbor-plugins/commit/1041b0840a8b5d2e8c7e9ff4f052663a4589a9f4))
+
+
+### Miscellaneous Chores
+
+* **master:** release thumbor-plugins-gifv 0.1.5 ([c7ae1e6](https://github.com/thumbor/thumbor-plugins/commit/c7ae1e6cc3ec809de67af747b64a34c41d9de358))
+
 ## [0.1.4](https://github.com/thumbor/thumbor-plugins/compare/thumbor-plugins-pngquant-v0.1.3...thumbor-plugins-pngquant-v0.1.4) (2023-11-07)
 
 
