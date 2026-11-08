@@ -1,4 +1,4 @@
-FROM python:3.12-slim@sha256:12316debbfb86890f6b2d825820612741ba527ad5a44e3902759141d572bfe8f
+FROM python:3.15-slim@sha256:94d3426f1def7db4a106a232ac121bfd975393e5dfd40a619b955fae45fe7913
 
 WORKDIR /app
 
@@ -24,11 +24,11 @@ RUN apt-get update -y && \
     rm -rf mozjpeg-v4.0.3.tar.gz mozjpeg-4.0.3 && \
     # cjpeg links against libpng, which apt installed only as a dependency of libpng-dev
     apt-mark manual libpng16-16t64 && \
+    # gcc and libc6-dev stay: thumbor 7.8.0 ships no cp315 wheel, so pip builds
+    # it from the sdist
     apt-get purge -y --auto-remove \
         wget \
         cmake \
-        gcc \
-        libc6-dev \
         nasm \
         make \
         libpng-dev && \
