@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "thumbor-plugins-mozjpeg"
-version = "0.1.4"
+version = "0.1.5"
 description = "Thumbor optimizer to run mozjpeg"
 requires-python = ">=3.11"
 license = "MIT"
